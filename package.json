@@ -1,5 +1,5 @@
 {
-  "name": "regexpp",
+  "name": "@eslint-community/regexpp",
   "version": "3.2.0",
   "description": "Regular expression parser for ECMAScript.",
   "engines": {
@@ -42,7 +42,7 @@
     "build": "run-s build:*",
     "build:tsc": "tsc --module es2015",
     "build:rollup": "rollup -c",
-    "build:dts": "dts-bundle --name regexpp --main .temp/index.d.ts --out ../index.d.ts",
+    "build:dts": "dts-bundle --name @eslint-community/regexpp --main .temp/index.d.ts --out ../index.d.ts",
     "clean": "rimraf .temp index.*",
     "codecov": "nyc report -r lcovonly && codecov -t ${CODECOV_TOKEN} --disable=gcov",
     "lint": "eslint scripts src test --ext .ts",
@@ -60,7 +60,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mysticatea/regexpp.git"
+    "url": "https://github.com/eslint-community/regexpp"
   },
   "keywords": [
     "regexp",
@@ -81,10 +81,10 @@
     "es2020",
     "annexB"
   ],
-  "author": "Toru Nagashima (https://github.com/mysticatea)",
+  "author": "Toru Nagashima",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mysticatea/regexpp/issues"
+    "url": "https://github.com/eslint-community/regexpp/issues"
   },
-  "homepage": "https://github.com/mysticatea/regexpp#readme"
+  "homepage": "https://github.com/eslint-community/regexpp#readme"
 }
