@@ -11,11 +11,16 @@ export type BranchNode =
     | CapturingGroup
     | CharacterClass
     | CharacterClassRange
+    | ClassIntersection
+    | ClassStringDisjunction
+    | ClassSubtraction
+    | ExpressionCharacterClass
     | Group
     | LookaroundAssertion
     | Pattern
     | Quantifier
     | RegExpLiteral
+    | StringAlternative
 
 /**
  * The type which includes all leaf nodes.
@@ -41,6 +46,7 @@ export type QuantifiableElement =
     | Character
     | CharacterClass
     | CharacterSet
+    | ExpressionCharacterClass
     | Group
     | LookaheadAssertion
 
@@ -48,10 +54,21 @@ export type QuantifiableElement =
  * The type which includes all character class atom nodes.
  */
 export type CharacterClassElement =
+    | ClassRangesCharacterClassElement
+    | UnicodeSetsCharacterClassElement
+export type ClassRangesCharacterClassElement =
     | Character
     | CharacterClassRange
     | EscapeCharacterSet
     | UnicodePropertyCharacterSet
+export type UnicodeSetsCharacterClassElement =
+    | Character
+    | CharacterClassRange
+    | ClassStringDisjunction
+    | EscapeCharacterSet
+    | ExpressionCharacterClass
+    | UnicodePropertyCharacterSet
+    | UnicodeSetsCharacterClass
 
 /**
  * The type which defines common properties for all node types.
@@ -166,11 +183,34 @@ export interface Quantifier extends NodeBase {
  * The character class.
  * E.g. `[ab]`, `[^ab]`
  */
-export interface CharacterClass extends NodeBase {
+export type CharacterClass =
+    | ClassRangesCharacterClass
+    | UnicodeSetsCharacterClass
+interface BaseCharacterClass extends NodeBase {
     type: "CharacterClass"
-    parent: Alternative | Quantifier
+    parent:
+        | Alternative
+        | ExpressionCharacterClass
+        | Quantifier
+        | UnicodeSetsCharacterClass
+    unicodeSets: boolean
     negate: boolean
     elements: CharacterClassElement[]
+}
+export interface ClassRangesCharacterClass extends BaseCharacterClass {
+    parent: Alternative | Quantifier
+    unicodeSets: false
+    elements: ClassRangesCharacterClassElement[]
+}
+/** UnicodeSetsCharacterClass is the CharacterClass when in Unicode sets mode. So it may contain strings. */
+export interface UnicodeSetsCharacterClass extends BaseCharacterClass {
+    parent:
+        | Alternative
+        | ExpressionCharacterClass
+        | Quantifier
+        | UnicodeSetsCharacterClass
+    unicodeSets: true
+    elements: UnicodeSetsCharacterClassElement[]
 }
 
 /**
@@ -239,7 +279,12 @@ export interface AnyCharacterSet extends NodeBase {
  */
 export interface EscapeCharacterSet extends NodeBase {
     type: "CharacterSet"
-    parent: Alternative | CharacterClass | Quantifier
+    parent:
+        | Alternative
+        | CharacterClass
+        | ClassIntersection
+        | ClassSubtraction
+        | Quantifier
     kind: "digit" | "space" | "word"
     negate: boolean
 }
@@ -248,13 +293,97 @@ export interface EscapeCharacterSet extends NodeBase {
  * The unicode property escape.
  * E.g. `\p{ASCII}`, `\P{ASCII}`, `\p{Script=Hiragana}`
  */
-export interface UnicodePropertyCharacterSet extends NodeBase {
+export type UnicodePropertyCharacterSet =
+    | CharacterUnicodePropertyCharacterSet
+    | StringsUnicodePropertyCharacterSet
+interface BaseUnicodePropertyCharacterSet extends NodeBase {
     type: "CharacterSet"
-    parent: Alternative | CharacterClass | Quantifier
+    parent:
+        | Alternative
+        | CharacterClass
+        | ClassIntersection
+        | ClassSubtraction
+        | Quantifier
     kind: "property"
+    strings: boolean
     key: string
     value: string | null
     negate: boolean
+}
+export interface CharacterUnicodePropertyCharacterSet
+    extends BaseUnicodePropertyCharacterSet {
+    strings: false
+    value: string | null
+    negate: boolean
+}
+/** StringsUnicodePropertyCharacterSet is Unicode property escape with property of strings. */
+export interface StringsUnicodePropertyCharacterSet
+    extends BaseUnicodePropertyCharacterSet {
+    strings: true
+    value: null
+    negate: false
+}
+
+/**
+ * The expression character class.
+ * E.g. `[a--b]`, `[a&&b]`,`[^a--b]`, `[^a&&b]`
+ */
+export interface ExpressionCharacterClass extends NodeBase {
+    type: "ExpressionCharacterClass"
+    parent:
+        | Alternative
+        | ExpressionCharacterClass
+        | Quantifier
+        | UnicodeSetsCharacterClass
+    negate: boolean
+    expression: ClassIntersection | ClassSubtraction
+}
+
+export type ClassSetOperand =
+    | Character
+    | ClassStringDisjunction
+    | EscapeCharacterSet
+    | ExpressionCharacterClass
+    | UnicodePropertyCharacterSet
+    | UnicodeSetsCharacterClass
+
+/**
+ * The character class intersection.
+ * E.g. `a&&b`
+ */
+export interface ClassIntersection extends NodeBase {
+    type: "ClassIntersection"
+    parent: ClassIntersection | ExpressionCharacterClass
+    left: ClassIntersection | ClassSetOperand
+    right: ClassSetOperand
+}
+
+/**
+ * The character class subtraction.
+ * E.g. `a--b`
+ */
+export interface ClassSubtraction extends NodeBase {
+    type: "ClassSubtraction"
+    parent: ClassSubtraction | ExpressionCharacterClass
+    left: ClassSetOperand | ClassSubtraction
+    right: ClassSetOperand
+}
+
+/**
+ * The character class string disjunction.
+ * E.g. `\q{a|b}`
+ */
+export interface ClassStringDisjunction extends NodeBase {
+    type: "ClassStringDisjunction"
+    parent: ClassIntersection | ClassSubtraction | UnicodeSetsCharacterClass
+    alternatives: StringAlternative[]
+}
+
+/** StringAlternative is only used for `\q{alt}`({@link ClassStringDisjunction}). */
+export interface StringAlternative extends NodeBase {
+    type: "StringAlternative"
+    parent: ClassStringDisjunction
+    elements: Character[]
 }
 
 /**
@@ -264,7 +393,14 @@ export interface UnicodePropertyCharacterSet extends NodeBase {
  */
 export interface Character extends NodeBase {
     type: "Character"
-    parent: Alternative | CharacterClass | CharacterClassRange | Quantifier
+    parent:
+        | Alternative
+        | CharacterClass
+        | CharacterClassRange
+        | ClassIntersection
+        | ClassSubtraction
+        | Quantifier
+        | StringAlternative
     value: number // a code point.
 }
 
@@ -292,4 +428,5 @@ export interface Flags extends NodeBase {
     multiline: boolean
     sticky: boolean
     unicode: boolean
+    unicodeSets: boolean
 }

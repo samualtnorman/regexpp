@@ -65,7 +65,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -163,7 +164,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -235,7 +237,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -337,7 +340,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -397,7 +401,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -482,7 +487,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -542,7 +548,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -627,7 +634,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -706,7 +714,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -785,7 +794,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -864,7 +874,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -941,7 +952,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1026,7 +1038,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1119,7 +1132,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1198,7 +1212,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1277,7 +1292,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1356,7 +1372,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1415,7 +1432,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1474,7 +1492,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1533,7 +1552,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1590,7 +1610,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1655,7 +1676,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1728,7 +1750,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1787,7 +1810,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1852,7 +1876,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1911,7 +1936,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -1984,7 +2010,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2043,7 +2070,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2124,7 +2152,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2205,7 +2234,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2264,7 +2294,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2323,7 +2354,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2382,7 +2414,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2449,7 +2482,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2524,7 +2558,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2607,7 +2642,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2666,7 +2702,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2741,7 +2778,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2800,7 +2838,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2883,7 +2922,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -2942,7 +2982,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3033,7 +3074,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3124,7 +3166,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3213,7 +3256,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3262,7 +3306,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3311,7 +3356,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3360,7 +3406,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3409,7 +3456,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3458,7 +3506,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3507,7 +3556,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3555,7 +3605,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3636,7 +3687,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3685,7 +3737,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3765,7 +3818,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3845,7 +3899,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3920,7 +3975,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -3997,7 +4053,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -4072,7 +4129,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -4404,7 +4462,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -4733,7 +4792,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5093,7 +5153,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5160,7 +5221,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5210,7 +5272,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5260,7 +5323,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5310,7 +5374,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5360,7 +5425,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5410,7 +5476,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5460,7 +5527,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5509,7 +5577,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5558,7 +5627,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5607,7 +5677,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5656,7 +5727,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5705,7 +5777,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5754,7 +5827,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5803,7 +5877,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5868,7 +5943,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5925,7 +6001,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -5974,7 +6051,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6023,7 +6101,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6080,7 +6159,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6145,7 +6225,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6218,7 +6299,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6267,7 +6349,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6324,7 +6407,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6381,7 +6465,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6446,7 +6531,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6519,7 +6605,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6592,7 +6679,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6651,7 +6739,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6764,7 +6853,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6823,7 +6913,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6882,7 +6973,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6931,7 +7023,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -6988,7 +7081,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7037,7 +7131,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7086,7 +7181,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7135,7 +7231,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7184,7 +7281,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7233,7 +7331,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7282,7 +7381,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7331,7 +7431,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7380,7 +7481,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7429,7 +7531,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7478,7 +7581,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7527,7 +7631,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7576,7 +7681,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7625,7 +7731,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7674,7 +7781,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7705,6 +7813,7 @@
                   "start": 1,
                   "end": 3,
                   "raw": "[]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": []
                 }
@@ -7724,7 +7833,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7755,6 +7865,7 @@
                   "start": 1,
                   "end": 9,
                   "raw": "[^-a-b-]",
+                  "unicodeSets": false,
                   "negate": true,
                   "elements": [
                     {
@@ -7814,7 +7925,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7845,6 +7957,7 @@
                   "start": 1,
                   "end": 4,
                   "raw": "[-]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -7873,7 +7986,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7904,6 +8018,7 @@
                   "start": 1,
                   "end": 4,
                   "raw": "[a]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -7932,7 +8047,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -7963,6 +8079,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[--]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -7999,7 +8116,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8030,6 +8148,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[-a]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8066,7 +8185,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8097,6 +8217,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[-a-]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8141,7 +8262,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8172,6 +8294,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[a-]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8208,7 +8331,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8239,6 +8363,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[a-b]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8282,7 +8407,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8313,6 +8439,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[-a-b-]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8372,7 +8499,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8403,6 +8531,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[---]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8446,7 +8575,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8477,6 +8607,7 @@
                   "start": 1,
                   "end": 9,
                   "raw": "[a-b--/]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8543,7 +8674,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8574,6 +8706,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\b-\\n]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8617,7 +8750,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8648,6 +8782,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[b\\-a]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8692,7 +8827,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8723,6 +8859,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\d]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8752,7 +8889,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8783,6 +8921,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\D]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8812,7 +8951,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8843,6 +8983,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\s]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8872,7 +9013,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8903,6 +9045,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\S]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8932,7 +9075,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -8963,6 +9107,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\w]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -8992,7 +9137,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9023,6 +9169,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\W]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9052,7 +9199,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9083,6 +9231,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\f]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9111,7 +9260,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9142,6 +9292,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\n]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9170,7 +9321,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9201,6 +9353,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\r]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9229,7 +9382,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9260,6 +9414,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\t]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9288,7 +9443,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9319,6 +9475,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\v]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9347,7 +9504,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9378,6 +9536,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\cA]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9406,7 +9565,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9437,6 +9597,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\cz]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9465,7 +9626,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9496,6 +9658,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\c1]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9524,7 +9687,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9555,6 +9719,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\c]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9591,7 +9756,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9622,6 +9788,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\0]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9650,7 +9817,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9681,6 +9849,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\x]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9709,7 +9878,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9740,6 +9910,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\xz]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9776,7 +9947,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9807,6 +9979,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\x1]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9843,7 +10016,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9874,6 +10048,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[\\x12]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9902,7 +10077,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -9933,6 +10109,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\x123]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -9969,7 +10146,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10000,6 +10178,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\u]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10028,7 +10207,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10059,6 +10239,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\u1]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10095,7 +10276,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10126,6 +10308,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[\\u12]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10170,7 +10353,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10201,6 +10385,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\u123]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10253,7 +10438,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10284,6 +10470,7 @@
                   "start": 1,
                   "end": 9,
                   "raw": "[\\u1234]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10312,7 +10499,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10343,6 +10531,7 @@
                   "start": 1,
                   "end": 10,
                   "raw": "[\\u12345]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10379,7 +10568,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10410,6 +10600,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\u{]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10446,7 +10637,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10477,6 +10669,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[\\u{z]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10521,7 +10714,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10552,6 +10746,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\u{a}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10604,7 +10799,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10635,6 +10831,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\u{20]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10687,7 +10884,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10718,6 +10916,7 @@
                   "start": 1,
                   "end": 9,
                   "raw": "[\\u{20}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10778,7 +10977,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10809,6 +11009,7 @@
                   "start": 1,
                   "end": 13,
                   "raw": "[\\u{10FFFF}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -10901,7 +11102,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -10932,6 +11134,7 @@
                   "start": 1,
                   "end": 13,
                   "raw": "[\\u{110000}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11024,7 +11227,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11055,6 +11259,7 @@
                   "start": 1,
                   "end": 15,
                   "raw": "[\\u{00000001}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11163,7 +11368,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11194,6 +11400,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\77]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11222,7 +11429,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11253,6 +11461,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[\\377]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11281,7 +11490,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11312,6 +11522,7 @@
                   "start": 1,
                   "end": 7,
                   "raw": "[\\400]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11348,7 +11559,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11379,6 +11591,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\^]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11407,7 +11620,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11438,6 +11652,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\$]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11466,7 +11681,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11497,6 +11713,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\.]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11525,7 +11742,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11556,6 +11774,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\+]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11584,7 +11803,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11615,6 +11835,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\?]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11643,7 +11864,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11674,6 +11896,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\(]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11702,7 +11925,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11733,6 +11957,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\)]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11761,7 +11986,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11792,6 +12018,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\[]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11820,7 +12047,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11851,6 +12079,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\]]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11879,7 +12108,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11910,6 +12140,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\{]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11938,7 +12169,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -11969,6 +12201,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -11997,7 +12230,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12028,6 +12262,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\|]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12056,7 +12291,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12087,6 +12323,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\/]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12115,7 +12352,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12146,6 +12384,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\a]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12174,7 +12413,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12205,6 +12445,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\d-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12250,7 +12491,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12281,6 +12523,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\D-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12326,7 +12569,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12357,6 +12601,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\s-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12402,7 +12647,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12433,6 +12679,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\S-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12478,7 +12725,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12509,6 +12757,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\w-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12554,7 +12803,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12585,6 +12835,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\W-\\uFFFF]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12630,7 +12881,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12661,6 +12913,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\d]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12706,7 +12959,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12737,6 +12991,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\D]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12782,7 +13037,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12813,6 +13069,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\s]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12858,7 +13115,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12889,6 +13147,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\S]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -12934,7 +13193,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -12965,6 +13225,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\w]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13010,7 +13271,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13041,6 +13303,7 @@
                   "start": 1,
                   "end": 12,
                   "raw": "[\\u0000-\\W]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13086,7 +13349,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13117,6 +13381,7 @@
                   "start": 1,
                   "end": 16,
                   "raw": "[\\u0000-\\u0001]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13160,7 +13425,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13191,6 +13457,7 @@
                   "start": 1,
                   "end": 13,
                   "raw": "[\\u{2-\\u{1}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13274,7 +13541,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13305,6 +13573,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\a-\\z]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13348,7 +13617,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13379,6 +13649,7 @@
                   "start": 1,
                   "end": 9,
                   "raw": "[0-9--/]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13445,7 +13716,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13476,6 +13748,7 @@
                   "start": 1,
                   "end": 8,
                   "raw": "[\\c0-\u001f]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13519,7 +13792,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13550,6 +13824,7 @@
                   "start": 1,
                   "end": 6,
                   "raw": "[\\c_]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -13578,7 +13853,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13626,6 +13902,7 @@
                     "start": 2,
                     "end": 7,
                     "raw": "[0-9]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -13678,7 +13955,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13726,6 +14004,7 @@
                     "start": 2,
                     "end": 7,
                     "raw": "[0-9]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -13778,7 +14057,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13826,6 +14106,7 @@
                     "start": 2,
                     "end": 10,
                     "raw": "[a-zA-Z]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -13901,7 +14182,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -13949,6 +14231,7 @@
                     "start": 2,
                     "end": 10,
                     "raw": "[a-zA-Z]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -14024,7 +14307,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14072,6 +14356,7 @@
                     "start": 2,
                     "end": 13,
                     "raw": "[0-9a-zA-Z]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -14170,7 +14455,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14218,6 +14504,7 @@
                     "start": 2,
                     "end": 26,
                     "raw": "[a-zA-Z0-9!-/:-@\\[-`{-~]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -14408,7 +14695,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14471,6 +14759,7 @@
                             "start": 3,
                             "end": 14,
                             "raw": "[a-zA-Z0-9]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -14574,7 +14863,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14637,6 +14927,7 @@
                             "start": 3,
                             "end": 14,
                             "raw": "[a-zA-Z0-9]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -14740,7 +15031,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14803,6 +15095,7 @@
                             "start": 3,
                             "end": 8,
                             "raw": "[0-9]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -14860,7 +15153,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -14908,6 +15202,7 @@
                     "start": 2,
                     "end": 7,
                     "raw": "[0-9]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -14960,7 +15255,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15083,7 +15379,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15186,7 +15483,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15319,7 +15617,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15373,6 +15672,7 @@
                           "start": 3,
                           "end": 8,
                           "raw": "[1-9]",
+                          "unicodeSets": false,
                           "negate": false,
                           "elements": [
                             {
@@ -15415,6 +15715,7 @@
                             "start": 8,
                             "end": 13,
                             "raw": "[0-9]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -15512,6 +15813,7 @@
                               "start": 20,
                               "end": 25,
                               "raw": "[0-9]",
+                              "unicodeSets": false,
                               "negate": false,
                               "elements": [
                                 {
@@ -15570,7 +15872,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15642,6 +15945,7 @@
                           "start": 5,
                           "end": 10,
                           "raw": "[1-9]",
+                          "unicodeSets": false,
                           "negate": false,
                           "elements": [
                             {
@@ -15684,6 +15988,7 @@
                             "start": 10,
                             "end": 15,
                             "raw": "[0-9]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -15781,6 +16086,7 @@
                               "start": 22,
                               "end": 27,
                               "raw": "[0-9]",
+                              "unicodeSets": false,
                               "negate": false,
                               "elements": [
                                 {
@@ -15839,7 +16145,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15887,6 +16194,7 @@
                     "start": 2,
                     "end": 8,
                     "raw": "[ぁ-んー]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -15947,7 +16255,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -15995,6 +16304,7 @@
                     "start": 2,
                     "end": 9,
                     "raw": "[ァ-ンヴー]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -16063,7 +16373,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -16111,6 +16422,7 @@
                     "start": 2,
                     "end": 11,
                     "raw": "[ｧ-ﾝﾞﾟ\\-]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -16187,7 +16499,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -16235,6 +16548,7 @@
                     "start": 2,
                     "end": 14,
                     "raw": "[^\\x20-\\x7e]",
+                    "unicodeSets": false,
                     "negate": true,
                     "elements": [
                       {
@@ -16287,7 +16601,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -16335,6 +16650,7 @@
                     "start": 2,
                     "end": 33,
                     "raw": "[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -16592,6 +16908,7 @@
                     "start": 35,
                     "end": 47,
                     "raw": "[a-zA-Z0-9-]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -16720,6 +17037,7 @@
                               "start": 53,
                               "end": 65,
                               "raw": "[a-zA-Z0-9-]",
+                              "unicodeSets": false,
                               "negate": false,
                               "elements": [
                                 {
@@ -16831,7 +17149,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -16964,6 +17283,7 @@
                                   "start": 14,
                                   "end": 19,
                                   "raw": "[1-5]",
+                                  "unicodeSets": false,
                                   "negate": false,
                                   "elements": [
                                     {
@@ -17111,6 +17431,7 @@
                             "start": 34,
                             "end": 38,
                             "raw": "[- ]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -17186,6 +17507,7 @@
                             "start": 46,
                             "end": 50,
                             "raw": "[- ]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -17261,6 +17583,7 @@
                             "start": 58,
                             "end": 62,
                             "raw": "[- ]",
+                            "unicodeSets": false,
                             "negate": false,
                             "elements": [
                               {
@@ -17329,6 +17652,7 @@
                   "start": 71,
                   "end": 76,
                   "raw": "[4,7]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -17400,7 +17724,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -17504,7 +17829,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -17535,6 +17861,7 @@
                   "start": 1,
                   "end": 5,
                   "raw": "[\\d]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -17563,6 +17890,7 @@
                     "start": 5,
                     "end": 14,
                     "raw": "[\\12-\\14]",
+                    "unicodeSets": false,
                     "negate": false,
                     "elements": [
                       {
@@ -17597,6 +17925,7 @@
                   "start": 18,
                   "end": 23,
                   "raw": "[^\\d]",
+                  "unicodeSets": false,
                   "negate": true,
                   "elements": [
                     {
@@ -17626,7 +17955,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     }

@@ -1,4 +1,5 @@
 import type { EcmaVersion } from "./ecma-versions"
+import { latestEcmaVersion } from "./ecma-versions"
 import { Reader } from "./reader"
 import { RegExpSyntaxError } from "./regexp-syntax-error"
 import {
@@ -73,36 +74,132 @@ import {
     isValidLoneUnicodeProperty,
     isValidUnicodeProperty,
     isValidUnicode,
+    AMPERSAND,
+    NUMBER_SIGN,
+    PERCENT_SIGN,
+    SEMICOLON,
+    COMMERCIAL_AT,
+    GRAVE_ACCENT,
+    TILDE,
+    LATIN_SMALL_LETTER_Q,
 } from "./unicode"
+import { isValidLoneUnicodePropertyOfString } from "./unicode/properties-of-strings"
+
+// ^ $ \ . * + ? ( ) [ ] { } |
+const SYNTAX_CHARACTER = new Set([
+    CIRCUMFLEX_ACCENT,
+    DOLLAR_SIGN,
+    REVERSE_SOLIDUS,
+    FULL_STOP,
+    ASTERISK,
+    PLUS_SIGN,
+    QUESTION_MARK,
+    LEFT_PARENTHESIS,
+    RIGHT_PARENTHESIS,
+    LEFT_SQUARE_BRACKET,
+    RIGHT_SQUARE_BRACKET,
+    LEFT_CURLY_BRACKET,
+    RIGHT_CURLY_BRACKET,
+    VERTICAL_LINE,
+])
+// && !! ## $$ %% ** ++ ,, .. :: ;; << == >> ?? @@ ^^ `` ~~
+const CLASS_SET_RESERVED_DOUBLE_PUNCTUATOR_CHARACTER = new Set([
+    AMPERSAND,
+    EXCLAMATION_MARK,
+    NUMBER_SIGN,
+    DOLLAR_SIGN,
+    PERCENT_SIGN,
+    ASTERISK,
+    PLUS_SIGN,
+    COMMA,
+    FULL_STOP,
+    COLON,
+    SEMICOLON,
+    LESS_THAN_SIGN,
+    EQUALS_SIGN,
+    GREATER_THAN_SIGN,
+    QUESTION_MARK,
+    COMMERCIAL_AT,
+    CIRCUMFLEX_ACCENT,
+    GRAVE_ACCENT,
+    TILDE,
+])
+// ( ) [ ] { } / - \ |
+const CLASS_SET_SYNTAX_CHARACTER = new Set([
+    LEFT_PARENTHESIS,
+    RIGHT_PARENTHESIS,
+    LEFT_SQUARE_BRACKET,
+    RIGHT_SQUARE_BRACKET,
+    LEFT_CURLY_BRACKET,
+    RIGHT_CURLY_BRACKET,
+    SOLIDUS,
+    HYPHEN_MINUS,
+    REVERSE_SOLIDUS,
+    VERTICAL_LINE,
+])
+// & - ! # % , : ; < = > @ ` ~
+const CLASS_SET_RESERVED_PUNCTUATOR = new Set([
+    AMPERSAND,
+    HYPHEN_MINUS,
+    EXCLAMATION_MARK,
+    NUMBER_SIGN,
+    PERCENT_SIGN,
+    COMMA,
+    COLON,
+    SEMICOLON,
+    LESS_THAN_SIGN,
+    EQUALS_SIGN,
+    GREATER_THAN_SIGN,
+    COMMERCIAL_AT,
+    GRAVE_ACCENT,
+    TILDE,
+])
 
 function isSyntaxCharacter(cp: number): boolean {
-    return (
-        cp === CIRCUMFLEX_ACCENT ||
-        cp === DOLLAR_SIGN ||
-        cp === REVERSE_SOLIDUS ||
-        cp === FULL_STOP ||
-        cp === ASTERISK ||
-        cp === PLUS_SIGN ||
-        cp === QUESTION_MARK ||
-        cp === LEFT_PARENTHESIS ||
-        cp === RIGHT_PARENTHESIS ||
-        cp === LEFT_SQUARE_BRACKET ||
-        cp === RIGHT_SQUARE_BRACKET ||
-        cp === LEFT_CURLY_BRACKET ||
-        cp === RIGHT_CURLY_BRACKET ||
-        cp === VERTICAL_LINE
-    )
+    // ^ $ \ . * + ? ( ) [ ] { } |
+    return SYNTAX_CHARACTER.has(cp)
 }
 
-function isRegExpIdentifierStart(cp: number): boolean {
+function isClassSetReservedDoublePunctuatorCharacter(cp: number): boolean {
+    // && !! ## $$ %% ** ++ ,, .. :: ;; << == >> ?? @@ ^^ `` ~~
+    return CLASS_SET_RESERVED_DOUBLE_PUNCTUATOR_CHARACTER.has(cp)
+}
+
+function isClassSetSyntaxCharacter(cp: number): boolean {
+    // ( ) [ ] { } / - \ |
+    return CLASS_SET_SYNTAX_CHARACTER.has(cp)
+}
+
+function isClassSetReservedPunctuator(cp: number): boolean {
+    // & - ! # % , : ; < = > @ ` ~
+    return CLASS_SET_RESERVED_PUNCTUATOR.has(cp)
+}
+
+/**
+ * ```
+ * IdentifierStartChar ::
+ *     UnicodeIDStart
+ *     $
+ *     _
+ * ```
+ */
+function isIdentifierStartChar(cp: number): boolean {
     return isIdStart(cp) || cp === DOLLAR_SIGN || cp === LOW_LINE
 }
 
-function isRegExpIdentifierPart(cp: number): boolean {
+/**
+ * ```
+ * IdentifierPartChar ::
+ *     UnicodeIDContinue
+ *     $
+ *     <ZWNJ>
+ *     <ZWJ>
+ * ```
+ */
+function isIdentifierPartChar(cp: number): boolean {
     return (
         isIdContinue(cp) ||
         cp === DOLLAR_SIGN ||
-        cp === LOW_LINE ||
         cp === ZERO_WIDTH_NON_JOINER ||
         cp === ZERO_WIDTH_JOINER
     )
@@ -127,13 +224,14 @@ export namespace RegExpValidator {
         strict?: boolean
 
         /**
-         * ECMAScript version. Default is `2023`.
+         * ECMAScript version. Default is `2024`.
          * - `2015` added `u` and `y` flags.
          * - `2018` added `s` flag, Named Capturing Group, Lookbehind Assertion,
          *   and Unicode Property Escape.
          * - `2019`, `2020`, and `2021` added more valid Unicode Property Escapes.
          * - `2022` added `d` flag.
          * - `2023` added more valid Unicode Property Escapes.
+         * - `2024` added `v` flag.
          */
         ecmaVersion?: EcmaVersion
 
@@ -161,6 +259,7 @@ export namespace RegExpValidator {
          * @param flags.sticky `y` flag.
          * @param flags.dotAll `s` flag.
          * @param flags.hasIndices `d` flag.
+         * @param flags.unicodeSets `v` flag.
          */
         onRegExpFlags?: (
             start: number,
@@ -173,6 +272,7 @@ export namespace RegExpValidator {
                 sticky: boolean
                 dotAll: boolean
                 hasIndices: boolean
+                unicodeSets: boolean
             },
         ) => void
         /**
@@ -372,6 +472,7 @@ export namespace RegExpValidator {
          * @param key The property name.
          * @param value The property value.
          * @param negate The flag which represents that the character set is negative.
+         * @param strings If true, the given property is property of strings.
          */
         onUnicodePropertyCharacterSet?: (
             start: number,
@@ -380,6 +481,7 @@ export namespace RegExpValidator {
             key: string,
             value: string | null,
             negate: boolean,
+            strings: boolean,
         ) => void
 
         /**
@@ -406,8 +508,13 @@ export namespace RegExpValidator {
          * A function that is called when the validator entered a character class.
          * @param start The 0-based index of the first character.
          * @param negate The flag which represents that the character class is negative.
+         * @param unicodeSets `true` if unicodeSets mode.
          */
-        onCharacterClassEnter?: (start: number, negate: boolean) => void
+        onCharacterClassEnter?: (
+            start: number,
+            negate: boolean,
+            unicodeSets: boolean,
+        ) => void
 
         /**
          * A function that is called when the validator left a character class.
@@ -434,7 +541,60 @@ export namespace RegExpValidator {
             min: number,
             max: number,
         ) => void
+
+        /**
+         * A function that is called when the validator found a class intersection.
+         * @param start The 0-based index of the first character.
+         * @param end The next 0-based index of the last character.
+         */
+        onClassIntersection?: (start: number, end: number) => void
+
+        /**
+         * A function that is called when the validator found a class subtraction.
+         * @param start The 0-based index of the first character.
+         * @param end The next 0-based index of the last character.
+         */
+        onClassSubtraction?: (start: number, end: number) => void
+
+        /**
+         * A function that is called when the validator entered a class string disjunction.
+         * @param start The 0-based index of the first character.
+         */
+        onClassStringDisjunctionEnter?: (start: number) => void
+
+        /**
+         * A function that is called when the validator left a class string disjunction.
+         * @param start The 0-based index of the first character.
+         * @param end The next 0-based index of the last character.
+         */
+        onClassStringDisjunctionLeave?: (start: number, end: number) => void
+
+        /**
+         * A function that is called when the validator entered a string alternative.
+         * @param start The 0-based index of the first character.
+         * @param index The 0-based index of alternatives in a disjunction.
+         */
+        onStringAlternativeEnter?: (start: number, index: number) => void
+
+        /**
+         * A function that is called when the validator left a string alternative.
+         * @param start The 0-based index of the first character.
+         * @param end The next 0-based index of the last character.
+         * @param index The 0-based index of alternatives in a disjunction.
+         */
+        onStringAlternativeLeave?: (
+            start: number,
+            end: number,
+            index: number,
+        ) => void
     }
+}
+
+type UnicodeSetsConsumeResult = { mayContainStrings?: boolean }
+type UnicodePropertyValueExpressionConsumeResult = {
+    key: string
+    value: string | null
+    strings?: boolean
 }
 
 /**
@@ -445,21 +605,20 @@ export class RegExpValidator {
 
     private readonly _reader = new Reader()
 
-    private _uFlag = false
+    private _unicodeMode = false
+
+    private _unicodeSetsMode = false
 
     private _nFlag = false
 
     private _lastIntValue = 0
 
-    private _lastMinValue = 0
-
-    private _lastMaxValue = 0
+    private _lastRange = {
+        min: 0,
+        max: Number.POSITIVE_INFINITY,
+    }
 
     private _lastStrValue = ""
-
-    private _lastKeyValue = ""
-
-    private _lastValValue = ""
 
     private _lastAssertionIsQuantifiable = false
 
@@ -488,15 +647,19 @@ export class RegExpValidator {
         start = 0,
         end: number = source.length,
     ): void {
-        this._uFlag = this._nFlag = false
+        this._unicodeSetsMode = this._unicodeMode = this._nFlag = false
         this.reset(source, start, end)
 
         this.onLiteralEnter(start)
         if (this.eat(SOLIDUS) && this.eatRegExpBody() && this.eat(SOLIDUS)) {
             const flagStart = this.index
-            const uFlag = source.includes("u", flagStart)
+            const unicode = source.includes("u", flagStart)
+            const unicodeSets = source.includes("v", flagStart)
             this.validateFlags(source, flagStart, end)
-            this.validatePattern(source, start + 1, flagStart - 1, uFlag)
+            this.validatePattern(source, start + 1, flagStart - 1, {
+                unicode,
+                unicodeSets,
+            })
         } else if (start >= end) {
             this.raise("Empty")
         } else {
@@ -525,6 +688,7 @@ export class RegExpValidator {
         let unicode = false
         let dotAll = false
         let hasIndices = false
+        let unicodeSets = false
         for (let i = start; i < end; ++i) {
             const flag = source.charCodeAt(i)
 
@@ -559,6 +723,11 @@ export class RegExpValidator {
                 this.ecmaVersion >= 2022
             ) {
                 hasIndices = true
+            } else if (
+                flag === LATIN_SMALL_LETTER_V &&
+                this.ecmaVersion >= 2024
+            ) {
+                unicodeSets = true
             } else {
                 this.raise(`Invalid flag '${source[i]}'`)
             }
@@ -571,6 +740,7 @@ export class RegExpValidator {
             sticky,
             dotAll,
             hasIndices,
+            unicodeSets,
         })
     }
 
@@ -579,21 +749,48 @@ export class RegExpValidator {
      * @param source The source code to validate.
      * @param start The start index in the source code.
      * @param end The end index in the source code.
+     * @param flags The flags.
+     */
+    public validatePattern(
+        source: string,
+        start?: number,
+        end?: number,
+        flags?: {
+            unicode?: boolean
+            unicodeSets?: boolean
+        },
+    ): void
+    /**
+     * @deprecated Backward compatibility
+     * Use object `flags` instead of boolean `uFlag`.
+     * @param source The source code to validate.
+     * @param start The start index in the source code.
+     * @param end The end index in the source code.
      * @param uFlag The flag to set unicode mode.
      */
     public validatePattern(
         source: string,
+        start?: number,
+        end?: number,
+        uFlag?: boolean, // The unicode flag (backward compatibility).
+    ): void
+    public validatePattern(
+        source: string,
         start = 0,
         end: number = source.length,
-        uFlag = false,
+        uFlagOrFlags:
+            | boolean // The unicode flag (backward compatibility).
+            | {
+                  unicode?: boolean
+                  unicodeSets?: boolean
+              }
+            | undefined = undefined,
     ): void {
-        this._uFlag = uFlag && this.ecmaVersion >= 2015
-        this._nFlag =
-            (uFlag && this.ecmaVersion >= 2018) ||
-            // Introduced as Normative Change in ES2023
-            // See https://github.com/tc39/ecma262/pull/2436
-            Boolean(this._options.strict && this.ecmaVersion >= 2023)
+        const mode = this._parseFlagsOptionToMode(uFlagOrFlags)
 
+        this._unicodeMode = mode.unicodeMode
+        this._nFlag = mode.nFlag
+        this._unicodeSetsMode = mode.unicodeSetsMode
         this.reset(source, start, end)
         this.consumePattern()
 
@@ -608,14 +805,59 @@ export class RegExpValidator {
         }
     }
 
+    private _parseFlagsOptionToMode(
+        uFlagOrFlags:
+            | boolean // The unicode flag (backward compatibility).
+            | {
+                  unicode?: boolean
+                  unicodeSets?: boolean
+              }
+            | undefined = undefined,
+    ): {
+        unicodeMode: boolean
+        nFlag: boolean
+        unicodeSetsMode: boolean
+    } {
+        let unicode = false
+        let unicodeSets = false
+        if (uFlagOrFlags && this.ecmaVersion >= 2015) {
+            if (typeof uFlagOrFlags === "object") {
+                unicode = Boolean(uFlagOrFlags.unicode)
+                if (this.ecmaVersion >= 2024) {
+                    unicodeSets = Boolean(uFlagOrFlags.unicodeSets)
+                }
+            } else {
+                // uFlagOrFlags is unicode flag (backward compatibility).
+                unicode = uFlagOrFlags
+            }
+        }
+
+        if (unicode && unicodeSets) {
+            // 1. If v is true and u is true, then
+            //   a. Let parseResult be a List containing one SyntaxError object.
+            this.raise("Invalid regular expression flags")
+        }
+
+        const unicodeMode = unicode || unicodeSets
+        const nFlag =
+            (unicode && this.ecmaVersion >= 2018) ||
+            unicodeSets ||
+            // Introduced as Normative Change in ES2023
+            // See https://github.com/tc39/ecma262/pull/2436
+            Boolean(this._options.strict && this.ecmaVersion >= 2023)
+        const unicodeSetsMode = unicodeSets
+
+        return { unicodeMode, nFlag, unicodeSetsMode }
+    }
+
     // #region Delegate for Options
 
     private get strict() {
-        return Boolean(this._options.strict) || this._uFlag
+        return Boolean(this._options.strict) || this._unicodeMode
     }
 
     private get ecmaVersion() {
-        return this._options.ecmaVersion ?? 2023
+        return this._options.ecmaVersion ?? latestEcmaVersion
     }
 
     private onLiteralEnter(start: number): void {
@@ -641,6 +883,7 @@ export class RegExpValidator {
             sticky: boolean
             dotAll: boolean
             hasIndices: boolean
+            unicodeSets: boolean
         },
     ): void {
         if (this._options.onRegExpFlags) {
@@ -808,6 +1051,7 @@ export class RegExpValidator {
         key: string,
         value: string | null,
         negate: boolean,
+        strings: boolean,
     ): void {
         if (this._options.onUnicodePropertyCharacterSet) {
             this._options.onUnicodePropertyCharacterSet(
@@ -817,6 +1061,7 @@ export class RegExpValidator {
                 key,
                 value,
                 negate,
+                strings,
             )
         }
     }
@@ -837,9 +1082,13 @@ export class RegExpValidator {
         }
     }
 
-    private onCharacterClassEnter(start: number, negate: boolean): void {
+    private onCharacterClassEnter(
+        start: number,
+        negate: boolean,
+        unicodeSets: boolean,
+    ): void {
         if (this._options.onCharacterClassEnter) {
-            this._options.onCharacterClassEnter(start, negate)
+            this._options.onCharacterClassEnter(start, negate, unicodeSets)
         }
     }
 
@@ -861,6 +1110,46 @@ export class RegExpValidator {
     ): void {
         if (this._options.onCharacterClassRange) {
             this._options.onCharacterClassRange(start, end, min, max)
+        }
+    }
+
+    private onClassIntersection(start: number, end: number): void {
+        if (this._options.onClassIntersection) {
+            this._options.onClassIntersection(start, end)
+        }
+    }
+
+    private onClassSubtraction(start: number, end: number): void {
+        if (this._options.onClassSubtraction) {
+            this._options.onClassSubtraction(start, end)
+        }
+    }
+
+    private onClassStringDisjunctionEnter(start: number): void {
+        if (this._options.onClassStringDisjunctionEnter) {
+            this._options.onClassStringDisjunctionEnter(start)
+        }
+    }
+
+    private onClassStringDisjunctionLeave(start: number, end: number): void {
+        if (this._options.onClassStringDisjunctionLeave) {
+            this._options.onClassStringDisjunctionLeave(start, end)
+        }
+    }
+
+    private onStringAlternativeEnter(start: number, index: number): void {
+        if (this._options.onStringAlternativeEnter) {
+            this._options.onStringAlternativeEnter(start, index)
+        }
+    }
+
+    private onStringAlternativeLeave(
+        start: number,
+        end: number,
+        index: number,
+    ): void {
+        if (this._options.onStringAlternativeLeave) {
+            this._options.onStringAlternativeLeave(start, end, index)
         }
     }
 
@@ -893,7 +1182,7 @@ export class RegExpValidator {
     }
 
     private reset(source: string, start: number, end: number): void {
-        this._reader.reset(source, start, end, this._uFlag)
+        this._reader.reset(source, start, end, this._unicodeMode)
     }
 
     private rewind(index: number): void {
@@ -921,13 +1210,13 @@ export class RegExpValidator {
     private raise(message: string): never {
         throw new RegExpSyntaxError(
             this.source,
-            this._uFlag,
+            this._unicodeMode,
             this.index,
             message,
         )
     }
 
-    // https://www.ecma-international.org/ecma-262/8.0/#prod-RegularExpressionBody
+    // https://tc39.es/ecma262/2022/multipage/ecmascript-language-lexical-grammar.html#prod-RegularExpressionBody
     private eatRegExpBody(): boolean {
         const start = this.index
         let inClass = false
@@ -962,8 +1251,8 @@ export class RegExpValidator {
     /**
      * Validate the next characters as a RegExp `Pattern` production.
      * ```
-     * Pattern[U, N]::
-     *      Disjunction[?U, ?N]
+     * Pattern[UnicodeMode, UnicodeSetsMode, N]::
+     *      Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N]
      * ```
      */
     private consumePattern(): void {
@@ -1037,9 +1326,9 @@ export class RegExpValidator {
     /**
      * Validate the next characters as a RegExp `Disjunction` production.
      * ```
-     * Disjunction[U, N]::
-     *      Alternative[?U, ?N]
-     *      Alternative[?U, ?N] `|` Disjunction[?U, ?N]
+     * Disjunction[UnicodeMode, UnicodeSetsMode, N]::
+     *      Alternative[?UnicodeMode, ?UnicodeSetsMode, ?N]
+     *      Alternative[?UnicodeMode, ?UnicodeSetsMode, ?N] `|` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N]
      * ```
      */
     private consumeDisjunction(): void {
@@ -1063,9 +1352,9 @@ export class RegExpValidator {
     /**
      * Validate the next characters as a RegExp `Alternative` production.
      * ```
-     * Alternative[U, N]::
-     *      ε
-     *      Alternative[?U, ?N] Term[?U, ?N]
+     * Alternative[UnicodeMode, UnicodeSetsMode, N]::
+     *      [empty]
+     *      Alternative[?UnicodeMode, ?UnicodeSetsMode, ?N] Term[?UnicodeMode, ?UnicodeSetsMode, ?N]
      * ```
      */
     private consumeAlternative(i: number): void {
@@ -1081,22 +1370,22 @@ export class RegExpValidator {
     /**
      * Validate the next characters as a RegExp `Term` production if possible.
      * ```
-     * Term[U, N]::
-     *      [strict] Assertion[+U, ?N]
-     *      [strict] Atom[+U, ?N]
-     *      [strict] Atom[+U, ?N] Quantifier
-     *      [annexB][+U] Assertion[+U, ?N]
-     *      [annexB][+U] Atom[+U, ?N]
-     *      [annexB][+U] Atom[+U, ?N] Quantifier
-     *      [annexB][~U] QuantifiableAssertion[?N] Quantifier
-     *      [annexB][~U] Assertion[~U, ?N]
-     *      [annexB][~U] ExtendedAtom[?N] Quantifier
-     *      [annexB][~U] ExtendedAtom[?N]
+     * Term[UnicodeMode, UnicodeSetsMode, N]::
+     *      [strict] Assertion[?UnicodeMode, ?UnicodeSetsMode, ?N]
+     *      [strict] Atom[?UnicodeMode, ?UnicodeSetsMode, ?N]
+     *      [strict] Atom[?UnicodeMode, UnicodeSetsMode, ?N] Quantifier
+     *      [annexB][+UnicodeMode] Assertion[+UnicodeMode, ?N]
+     *      [annexB][+UnicodeMode] Atom[+UnicodeMode, ?N] Quantifier
+     *      [annexB][+UnicodeMode] Atom[+UnicodeMode, ?N]
+     *      [annexB][~UnicodeMode] QuantifiableAssertion[?N] Quantifier
+     *      [annexB][~UnicodeMode] Assertion[~UnicodeMode, ?N]
+     *      [annexB][~UnicodeMode] ExtendedAtom[?N] Quantifier
+     *      [annexB][~UnicodeMode] ExtendedAtom[?N]
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
     private consumeTerm(): boolean {
-        if (this._uFlag || this.strict) {
+        if (this._unicodeMode || this.strict) {
             return (
                 this.consumeAssertion() ||
                 (this.consumeAtom() && this.consumeOptionalQuantifier())
@@ -1120,21 +1409,21 @@ export class RegExpValidator {
      * Set `this._lastAssertionIsQuantifiable` if the consumed assertion was a
      * `QuantifiableAssertion` production.
      * ```
-     * Assertion[U, N]::
+     * Assertion[UnicodeMode, UnicodeSetsMode, N]::
      *      `^`
      *      `$`
      *      `\b`
      *      `\B`
-     *      [strict] `(?=` Disjunction[+U, ?N] `)`
-     *      [strict] `(?!` Disjunction[+U, ?N] `)`
-     *      [annexB][+U] `(?=` Disjunction[+U, ?N] `)`
-     *      [annexB][+U] `(?!` Disjunction[+U, ?N] `)`
-     *      [annexB][~U] QuantifiableAssertion[?N]
-     *      `(?<=` Disjunction[?U, ?N] `)`
-     *      `(?<!` Disjunction[?U, ?N] `)`
+     *      [strict] `(?=` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
+     *      [strict] `(?!` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
+     *      [annexB][+UnicodeMode] `(?=` Disjunction[+UnicodeMode, ?N] `)`
+     *      [annexB][+UnicodeMode] `(?!` Disjunction[+UnicodeMode, ?N] `)`
+     *      [annexB][~UnicodeMode] QuantifiableAssertion[?N]
+     *      `(?<=` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
+     *      `(?<!` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
      * QuantifiableAssertion[N]::
-     *      `(?=` Disjunction[~U, ?N] `)`
-     *      `(?!` Disjunction[~U, ?N] `)`
+     *      `(?=` Disjunction[~UnicodeMode, ?N] `)`
+     *      `(?!` Disjunction[~UnicodeMode, ?N] `)`
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1219,8 +1508,7 @@ export class RegExpValidator {
             min = 0
             max = 1
         } else if (this.eatBracedQuantifier(noConsume)) {
-            min = this._lastMinValue
-            max = this._lastMaxValue
+            ;({ min, max } = this._lastRange)
         } else {
             return false
         }
@@ -1236,7 +1524,7 @@ export class RegExpValidator {
 
     /**
      * Eat the next characters as the following alternatives if possible.
-     * Set `this._lastMinValue` and `this._lastMaxValue` if it consumed the next
+     * Set `this._lastRange` if it consumed the next
      * characters successfully.
      * ```
      *      `{` DecimalDigits `}`
@@ -1248,23 +1536,23 @@ export class RegExpValidator {
     private eatBracedQuantifier(noError: boolean): boolean {
         const start = this.index
         if (this.eat(LEFT_CURLY_BRACKET)) {
-            this._lastMinValue = 0
-            this._lastMaxValue = Number.POSITIVE_INFINITY
             if (this.eatDecimalDigits()) {
-                this._lastMinValue = this._lastMaxValue = this._lastIntValue
+                const min = this._lastIntValue
+                let max = min
                 if (this.eat(COMMA)) {
-                    this._lastMaxValue = this.eatDecimalDigits()
+                    max = this.eatDecimalDigits()
                         ? this._lastIntValue
                         : Number.POSITIVE_INFINITY
                 }
                 if (this.eat(RIGHT_CURLY_BRACKET)) {
-                    if (!noError && this._lastMaxValue < this._lastMinValue) {
+                    if (!noError && max < min) {
                         this.raise("numbers out of order in {} quantifier")
                     }
+                    this._lastRange = { min, max }
                     return true
                 }
             }
-            if (!noError && (this._uFlag || this.strict)) {
+            if (!noError && (this._unicodeMode || this.strict)) {
                 this.raise("Incomplete quantifier")
             }
             this.rewind(start)
@@ -1275,13 +1563,13 @@ export class RegExpValidator {
     /**
      * Validate the next characters as a RegExp `Atom` production if possible.
      * ```
-     * Atom[U, N]::
+     * Atom[UnicodeMode, UnicodeSetsMode, N]::
      *      PatternCharacter
      *      `.`
-     *      `\\` AtomEscape[?U, ?N]
-     *      CharacterClass[?U]
-     *      `(?:` Disjunction[?U, ?N] )
-     *      `(` GroupSpecifier[?U] Disjunction[?U, ?N] `)`
+     *      `\\` AtomEscape[?UnicodeMode, ?UnicodeSetsMode, ?N]
+     *      CharacterClass[?UnicodeMode, ?UnicodeSetsMode]
+     *      `(` GroupSpecifier[?UnicodeMode] Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
+     *      `(?:` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1290,7 +1578,7 @@ export class RegExpValidator {
             this.consumePatternCharacter() ||
             this.consumeDot() ||
             this.consumeReverseSolidusAtomEscape() ||
-            this.consumeCharacterClass() ||
+            Boolean(this.consumeCharacterClass()) ||
             this.consumeUncapturingGroup() ||
             this.consumeCapturingGroup()
         )
@@ -1314,7 +1602,7 @@ export class RegExpValidator {
     /**
      * Validate the next characters as the following alternatives if possible.
      * ```
-     *      `\\` AtomEscape[?U, ?N]
+     *      `\\` AtomEscape[?UnicodeMode, ?UnicodeSetsMode, ?N]
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1332,7 +1620,7 @@ export class RegExpValidator {
     /**
      * Validate the next characters as the following alternatives if possible.
      * ```
-     *      `(?:` Disjunction[?U, ?N] )
+     *      `(?:` Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] )
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1353,7 +1641,7 @@ export class RegExpValidator {
     /**
      * Validate the next characters as the following alternatives if possible.
      * ```
-     *      `(` GroupSpecifier[?U] Disjunction[?U, ?N] `)`
+     *      `(` GroupSpecifier[?UnicodeMode] Disjunction[?UnicodeMode, ?UnicodeSetsMode, ?N] `)`
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1402,7 +1690,7 @@ export class RegExpValidator {
             this.consumeDot() ||
             this.consumeReverseSolidusAtomEscape() ||
             this.consumeReverseSolidusFollowedByC() ||
-            this.consumeCharacterClass() ||
+            Boolean(this.consumeCharacterClass()) ||
             this.consumeUncapturingGroup() ||
             this.consumeCapturingGroup() ||
             this.consumeInvalidBracedQuantifier() ||
@@ -1506,9 +1794,9 @@ export class RegExpValidator {
      * Validate the next characters as a RegExp `GroupSpecifier` production.
      * Set `this._lastStrValue` if the group name existed.
      * ```
-     * GroupSpecifier[U]::
-     *      ε
-     *      `?` GroupName[?U]
+     * GroupSpecifier[UnicodeMode]::
+     *      [empty]
+     *      `?` GroupName[?UnicodeMode]
      * ```
      * @returns `true` if the group name existed.
      */
@@ -1530,14 +1818,14 @@ export class RegExpValidator {
      * Validate the next characters as a RegExp `AtomEscape` production if
      * possible.
      * ```
-     * AtomEscape[U, N]::
+     * AtomEscape[UnicodeMode, N]::
      *      [strict] DecimalEscape
-     *      [annexB][+U] DecimalEscape
-     *      [annexB][~U] DecimalEscape but only if the CapturingGroupNumber of DecimalEscape is <= NcapturingParens
-     *      CharacterClassEscape[?U]
-     *      [strict] CharacterEscape[?U]
-     *      [annexB] CharacterEscape[?U, ?N]
-     *      [+N] `k` GroupName[?U]
+     *      [annexB][+UnicodeMode] DecimalEscape
+     *      [annexB][~UnicodeMode] DecimalEscape but only if the CapturingGroupNumber of DecimalEscape is <= NcapturingParens
+     *      CharacterClassEscape[?UnicodeMode]
+     *      [strict] CharacterEscape[?UnicodeMode]
+     *      [annexB] CharacterEscape[?UnicodeMode, ?N]
+     *      [+N] `k` GroupName[?UnicodeMode]
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1550,18 +1838,18 @@ export class RegExpValidator {
         ) {
             return true
         }
-        if (this.strict || this._uFlag) {
+        if (this.strict || this._unicodeMode) {
             this.raise("Invalid escape")
         }
         return false
     }
 
     /**
-     * Validate the next characters as the follwoing alternatives if possible.
+     * Validate the next characters as the following alternatives if possible.
      * ```
      *      [strict] DecimalEscape
-     *      [annexB][+U] DecimalEscape
-     *      [annexB][~U] DecimalEscape but only if the CapturingGroupNumber of DecimalEscape is <= NcapturingParens
+     *      [annexB][+UnicodeMode] DecimalEscape
+     *      [annexB][~UnicodeMode] DecimalEscape but only if the CapturingGroupNumber of DecimalEscape is <= NcapturingParens
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1573,7 +1861,7 @@ export class RegExpValidator {
                 this.onBackreference(start - 1, this.index, n)
                 return true
             }
-            if (this.strict || this._uFlag) {
+            if (this.strict || this._unicodeMode) {
                 this.raise("Invalid escape")
             }
             this.rewind(start)
@@ -1587,93 +1875,145 @@ export class RegExpValidator {
      * Set `-1` to `this._lastIntValue` as meaning of a character set if it ate
      * the next characters successfully.
      * ```
-     * CharacterClassEscape[U]::
+     * CharacterClassEscape[UnicodeMode]::
      *      `d`
      *      `D`
      *      `s`
      *      `S`
      *      `w`
      *      `W`
-     *      [+U] `p{` UnicodePropertyValueExpression `}`
-     *      [+U] `P{` UnicodePropertyValueExpression `}`
+     *      [+UnicodeMode] `p{` UnicodePropertyValueExpression `}`
+     *      [+UnicodeMode] `P{` UnicodePropertyValueExpression `}`
      * ```
-     * @returns `true` if it consumed the next characters successfully.
+     * @returns the object if it consumed the next characters successfully.
      */
-    private consumeCharacterClassEscape(): boolean {
+    // eslint-disable-next-line complexity
+    private consumeCharacterClassEscape(): UnicodeSetsConsumeResult | null {
         const start = this.index
 
         if (this.eat(LATIN_SMALL_LETTER_D)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "digit", false)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         d
+            //     1. Return false.
+            return {}
         }
         if (this.eat(LATIN_CAPITAL_LETTER_D)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "digit", true)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         D
+            //     1. Return false.
+            return {}
         }
         if (this.eat(LATIN_SMALL_LETTER_S)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "space", false)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         s
+            //     1. Return false.
+            return {}
         }
         if (this.eat(LATIN_CAPITAL_LETTER_S)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "space", true)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         S
+            //     1. Return false.
+            return {}
         }
         if (this.eat(LATIN_SMALL_LETTER_W)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "word", false)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         w
+            //     1. Return false.
+            return {}
         }
         if (this.eat(LATIN_CAPITAL_LETTER_W)) {
             this._lastIntValue = -1
             this.onEscapeCharacterSet(start - 1, this.index, "word", true)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClassEscape[UnicodeMode] ::
+            //         W
+            //     1. Return false.
+            return {}
         }
 
         let negate = false
         if (
-            this._uFlag &&
+            this._unicodeMode &&
             this.ecmaVersion >= 2018 &&
             (this.eat(LATIN_SMALL_LETTER_P) ||
                 (negate = this.eat(LATIN_CAPITAL_LETTER_P)))
         ) {
             this._lastIntValue = -1
+            let result: UnicodePropertyValueExpressionConsumeResult | null =
+                null
             if (
                 this.eat(LEFT_CURLY_BRACKET) &&
-                this.eatUnicodePropertyValueExpression() &&
+                (result = this.eatUnicodePropertyValueExpression()) &&
                 this.eat(RIGHT_CURLY_BRACKET)
             ) {
+                if (negate && result.strings) {
+                    this.raise("Invalid property name")
+                }
+
                 this.onUnicodePropertyCharacterSet(
                     start - 1,
                     this.index,
                     "property",
-                    this._lastKeyValue,
-                    this._lastValValue || null,
+                    result.key,
+                    result.value,
                     negate,
+                    result.strings ?? false,
                 )
-                return true
+
+                // * Static Semantics: MayContainStrings
+                // CharacterClassEscape[UnicodeMode] ::
+                //         P{ UnicodePropertyValueExpression }
+                // UnicodePropertyValueExpression ::
+                //         UnicodePropertyName = UnicodePropertyValue
+                //     1. Return false.
+                // CharacterClassEscape :: p{ UnicodePropertyValueExpression }
+                //     1. Return MayContainStrings of the UnicodePropertyValueExpression.
+                // UnicodePropertyValueExpression :: LoneUnicodePropertyNameOrValue
+                //     1. If SourceText of LoneUnicodePropertyNameOrValue is identical to a List of Unicode code points that is a binary property of strings listed in the “Property name” column of Table 69, return true.
+                //     2. Return false.
+                //
+                // negate==true && mayContainStrings==true is already errors, so no need to handle it.
+                return { mayContainStrings: result.strings }
             }
             this.raise("Invalid property name")
         }
 
-        return false
+        return null
     }
 
     /**
      * Validate the next characters as a RegExp `CharacterEscape` production if
      * possible.
      * ```
-     * CharacterEscape[U, N]::
+     * CharacterEscape[UnicodeMode, N]::
      *      ControlEscape
      *      `c` ControlLetter
      *      `0` [lookahead ∉ DecimalDigit]
      *      HexEscapeSequence
-     *      RegExpUnicodeEscapeSequence[?U]
-     *      [annexB][~U] LegacyOctalEscapeSequence
-     *      IdentityEscape[?U, ?N]
+     *      RegExpUnicodeEscapeSequence[?UnicodeMode]
+     *      [annexB][~UnicodeMode] LegacyOctalEscapeSequence
+     *      IdentityEscape[?UnicodeMode, ?N]
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1686,7 +2026,7 @@ export class RegExpValidator {
             this.eatHexEscapeSequence() ||
             this.eatRegExpUnicodeEscapeSequence() ||
             (!this.strict &&
-                !this._uFlag &&
+                !this._unicodeMode &&
                 this.eatLegacyOctalEscapeSequence()) ||
             this.eatIdentityEscape()
         ) {
@@ -1697,9 +2037,9 @@ export class RegExpValidator {
     }
 
     /**
-     * Validate the next characters as the follwoing alternatives if possible.
+     * Validate the next characters as the following alternatives if possible.
      * ```
-     *      `k` GroupName[?U]
+     *      `k` GroupName[?UnicodeMode]
      * ```
      * @returns `true` if it consumed the next characters successfully.
      */
@@ -1721,45 +2061,77 @@ export class RegExpValidator {
      * Validate the next characters as a RegExp `CharacterClass` production if
      * possible.
      * ```
-     * CharacterClass[U]::
-     *      `[` [lookahead ≠ ^] ClassRanges[?U] `]`
-     *      `[^` ClassRanges[?U] `]`
+     * CharacterClass[UnicodeMode, UnicodeSetsMode]::
+     *      `[` [lookahead ≠ ^] ClassContents[?UnicodeMode, ?UnicodeSetsMode] `]`
+     *      `[^` ClassContents[?UnicodeMode, ?UnicodeSetsMode] `]`
      * ```
-     * @returns `true` if it consumed the next characters successfully.
+     * @returns the object if it consumed the next characters successfully.
      */
-    private consumeCharacterClass(): boolean {
+    private consumeCharacterClass(): UnicodeSetsConsumeResult | null {
         const start = this.index
         if (this.eat(LEFT_SQUARE_BRACKET)) {
             const negate = this.eat(CIRCUMFLEX_ACCENT)
-            this.onCharacterClassEnter(start, negate)
-            this.consumeClassRanges()
+            this.onCharacterClassEnter(start, negate, this._unicodeSetsMode)
+            const result = this.consumeClassContents()
             if (!this.eat(RIGHT_SQUARE_BRACKET)) {
-                this.raise("Unterminated character class")
+                if (this.currentCodePoint === -1) {
+                    this.raise("Unterminated character class")
+                }
+                this.raise("Invalid character in character class")
             }
+            if (negate && result.mayContainStrings) {
+                this.raise("Negated character class may contain strings")
+            }
+
             this.onCharacterClassLeave(start, this.index, negate)
-            return true
+
+            // * Static Semantics: MayContainStrings
+            // CharacterClass[UnicodeMode, UnicodeSetsMode] ::
+            //         [ ^ ClassContents[?UnicodeMode, ?UnicodeSetsMode] ]
+            //     1. Return false.
+            // CharacterClass :: [ ClassContents ]
+            //     1. Return MayContainStrings of the ClassContents.
+            return result
         }
-        return false
+        return null
     }
 
     /**
-     * Validate the next characters as a RegExp `ClassRanges` production.
+     * Validate the next characters as a RegExp `ClassContents` production.
      * ```
-     * ClassRanges[U]::
-     *      ε
-     *      NonemptyClassRanges[?U]
-     * NonemptyClassRanges[U]::
-     *      ClassAtom[?U]
-     *      ClassAtom[?U] NonemptyClassRangesNoDash[?U]
-     *      ClassAtom[?U] `-` ClassAtom[?U] ClassRanges[?U]
-     * NonemptyClassRangesNoDash[U]::
-     *      ClassAtom[?U]
-     *      ClassAtomNoDash[?U] NonemptyClassRangesNoDash[?U]
-     *      ClassAtomNoDash[?U] `-` ClassAtom[?U] ClassRanges[?U]
+     * ClassContents[UnicodeMode, UnicodeSetsMode] ::
+     *      [empty]
+     *      [~UnicodeSetsMode] NonemptyClassRanges[?UnicodeMode]
+     *      [+UnicodeSetsMode] ClassSetExpression
+     * NonemptyClassRanges[UnicodeMode]::
+     *      ClassAtom[?UnicodeMode]
+     *      ClassAtom[?UnicodeMode] NonemptyClassRangesNoDash[?UnicodeMode]
+     *      ClassAtom[?UnicodeMode] `-` ClassAtom[?UnicodeMode] ClassContents[?UnicodeMode, ~UnicodeSetsMode]
+     * NonemptyClassRangesNoDash[UnicodeMode]::
+     *      ClassAtom[?UnicodeMode]
+     *      ClassAtomNoDash[?UnicodeMode] NonemptyClassRangesNoDash[?UnicodeMode]
+     *      ClassAtomNoDash[?UnicodeMode] `-` ClassAtom[?UnicodeMode] ClassContents[?UnicodeMode, ~UnicodeSetsMode]
      * ```
      */
-    private consumeClassRanges(): void {
-        const strict = this.strict || this._uFlag
+    private consumeClassContents(): UnicodeSetsConsumeResult {
+        if (this._unicodeSetsMode) {
+            if (this.currentCodePoint === RIGHT_SQUARE_BRACKET) {
+                // [empty]
+
+                // * Static Semantics: MayContainStrings
+                // ClassContents[UnicodeMode, UnicodeSetsMode] ::
+                //         [empty]
+                //     1. Return false.
+                return {}
+            }
+            const result = this.consumeClassSetExpression()
+
+            // * Static Semantics: MayContainStrings
+            // ClassContents :: ClassSetExpression
+            //     1. Return MayContainStrings of the ClassSetExpression.
+            return result
+        }
+        const strict = this.strict || this._unicodeMode
         for (;;) {
             // Consume the first ClassAtom
             const rangeStart = this.index
@@ -1793,6 +2165,12 @@ export class RegExpValidator {
 
             this.onCharacterClassRange(rangeStart, this.index, min, max)
         }
+
+        // * Static Semantics: MayContainStrings
+        // ClassContents[UnicodeMode, UnicodeSetsMode] ::
+        //         NonemptyClassRanges[?UnicodeMode]
+        //     1. Return false.
+        return {}
     }
 
     /**
@@ -1800,12 +2178,12 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastIntValue` if it consumed the next characters successfully.
      * ```
-     * ClassAtom[U, N]::
+     * ClassAtom[UnicodeMode, N]::
      *      `-`
-     *      ClassAtomNoDash[?U, ?N]
-     * ClassAtomNoDash[U, N]::
+     *      ClassAtomNoDash[?UnicodeMode, ?N]
+     * ClassAtomNoDash[UnicodeMode, N]::
      *      SourceCharacter but not one of \ ] -
-     *      `\` ClassEscape[?U, ?N]
+     *      `\` ClassEscape[?UnicodeMode, ?N]
      *      [annexB] `\` [lookahead = c]
      * ```
      * @returns `true` if it consumed the next characters successfully.
@@ -1837,7 +2215,7 @@ export class RegExpValidator {
                 this.onCharacter(start, this.index, this._lastIntValue)
                 return true
             }
-            if (this.strict || this._uFlag) {
+            if (this.strict || this._unicodeMode) {
                 this.raise("Invalid escape")
             }
             this.rewind(start)
@@ -1851,12 +2229,12 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastIntValue` if it consumed the next characters successfully.
      * ```
-     * ClassEscape[U, N]::
+     * ClassEscape[UnicodeMode, N]::
      *      `b`
-     *      [+U] `-`
-     *      [annexB][~U] `c` ClassControlLetter
-     *      CharacterClassEscape[?U]
-     *      CharacterEscape[?U, ?N]
+     *      [+UnicodeMode] `-`
+     *      [annexB][~UnicodeMode] `c` ClassControlLetter
+     *      CharacterClassEscape[?UnicodeMode]
+     *      CharacterEscape[?UnicodeMode, ?N]
      * ClassControlLetter::
      *      DecimalDigit
      *      `_`
@@ -1873,18 +2251,18 @@ export class RegExpValidator {
             return true
         }
 
-        // [+U] `-`
-        if (this._uFlag && this.eat(HYPHEN_MINUS)) {
+        // [+UnicodeMode] `-`
+        if (this._unicodeMode && this.eat(HYPHEN_MINUS)) {
             this._lastIntValue = HYPHEN_MINUS
             this.onCharacter(start - 1, this.index, this._lastIntValue)
             return true
         }
 
-        // [annexB][~U] `c` ClassControlLetter
+        // [annexB][~UnicodeMode] `c` ClassControlLetter
         let cp = 0
         if (
             !this.strict &&
-            !this._uFlag &&
+            !this._unicodeMode &&
             this.currentCodePoint === LATIN_SMALL_LETTER_C &&
             (isDecimalDigit((cp = this.nextCodePoint)) || cp === LOW_LINE)
         ) {
@@ -1896,16 +2274,404 @@ export class RegExpValidator {
         }
 
         return (
-            this.consumeCharacterClassEscape() || this.consumeCharacterEscape()
+            Boolean(this.consumeCharacterClassEscape()) ||
+            this.consumeCharacterEscape()
         )
+    }
+
+    /**
+     * Validate the next characters as a RegExp `ClassSetExpression` production.
+     * ```
+     * ClassSetExpression ::
+     *     ClassUnion
+     *     ClassIntersection
+     *     ClassSubtraction
+     * ClassUnion ::
+     *     ClassSetRange ClassUnion(opt)
+     *     ClassSetOperand ClassUnion(opt)
+     * ClassIntersection ::
+     *     ClassSetOperand `&&` [lookahead ≠ &] ClassSetOperand
+     *     ClassIntersection `&&` [lookahead ≠ &] ClassSetOperand
+     * ClassSubtraction ::
+     *     ClassSetOperand `--` ClassSetOperand
+     *     ClassSubtraction `--` ClassSetOperand
+     * ```
+     */
+    private consumeClassSetExpression(): UnicodeSetsConsumeResult {
+        const start = this.index
+        let mayContainStrings: boolean | undefined = false
+        let result: UnicodeSetsConsumeResult | null = null
+        if (this.consumeClassSetCharacter()) {
+            if (this.consumeClassSetRangeFromOperator(start)) {
+                // ClassUnion
+                this.consumeClassUnionRight({})
+                return {}
+            }
+            // ClassSetOperand
+
+            // * Static Semantics: MayContainStrings
+            // ClassSetOperand ::
+            //         ClassSetCharacter
+            //     1. Return false.
+            mayContainStrings = false
+        } else if ((result = this.consumeClassSetOperand())) {
+            mayContainStrings = result.mayContainStrings
+        } else {
+            const cp = this.currentCodePoint
+            if (cp === REVERSE_SOLIDUS) {
+                // Make the same message as V8.
+                this.advance()
+                this.raise("Invalid escape")
+            }
+            if (
+                cp === this.nextCodePoint &&
+                isClassSetReservedDoublePunctuatorCharacter(cp)
+            ) {
+                // Make the same message as V8.
+                this.raise("Invalid set operation in character class")
+            }
+            this.raise("Invalid character in character class")
+        }
+
+        if (this.eat2(AMPERSAND, AMPERSAND)) {
+            // ClassIntersection
+            while (
+                this.currentCodePoint !== AMPERSAND &&
+                (result = this.consumeClassSetOperand())
+            ) {
+                this.onClassIntersection(start, this.index)
+                if (!result.mayContainStrings) {
+                    mayContainStrings = false
+                }
+                if (this.eat2(AMPERSAND, AMPERSAND)) {
+                    continue
+                }
+
+                // * Static Semantics: MayContainStrings
+                // ClassSetExpression :: ClassIntersection
+                //     1. Return MayContainStrings of the ClassIntersection.
+                // ClassIntersection :: ClassSetOperand && ClassSetOperand
+                //     1. If MayContainStrings of the first ClassSetOperand is false, return false.
+                //     2. If MayContainStrings of the second ClassSetOperand is false, return false.
+                //     3. Return true.
+                // ClassIntersection :: ClassIntersection && ClassSetOperand
+                //     1. If MayContainStrings of the ClassIntersection is false, return false.
+                //     2. If MayContainStrings of the ClassSetOperand is false, return false.
+                //     3. Return true.
+                return { mayContainStrings }
+            }
+
+            this.raise("Invalid character in character class")
+        }
+        if (this.eat2(HYPHEN_MINUS, HYPHEN_MINUS)) {
+            // ClassSubtraction
+            while (this.consumeClassSetOperand()) {
+                this.onClassSubtraction(start, this.index)
+                if (this.eat2(HYPHEN_MINUS, HYPHEN_MINUS)) {
+                    continue
+                }
+                // * Static Semantics: MayContainStrings
+                // ClassSetExpression :: ClassSubtraction
+                //     1. Return MayContainStrings of the ClassSubtraction.
+                // ClassSubtraction :: ClassSetOperand -- ClassSetOperand
+                //     1. Return MayContainStrings of the first ClassSetOperand.
+                // ClassSubtraction :: ClassSubtraction -- ClassSetOperand
+                //     1. Return MayContainStrings of the ClassSubtraction.
+                return { mayContainStrings }
+            }
+            this.raise("Invalid character in character class")
+        }
+        // ClassUnion
+        return this.consumeClassUnionRight({ mayContainStrings })
+    }
+
+    /**
+     * Validate the next characters as right operand of a RegExp `ClassUnion` production.
+     * ```
+     * ClassUnion ::
+     *     ClassSetRange ClassUnion(opt)
+     *     ClassSetOperand ClassUnion(opt)
+     * ```
+     * @param leftResult The result information for the left `ClassSetRange` or `ClassSetOperand`.
+     */
+    private consumeClassUnionRight(
+        leftResult: UnicodeSetsConsumeResult,
+    ): UnicodeSetsConsumeResult {
+        // ClassUnion
+        let mayContainStrings = leftResult.mayContainStrings
+        for (;;) {
+            const start = this.index
+            if (this.consumeClassSetCharacter()) {
+                this.consumeClassSetRangeFromOperator(start)
+                continue
+            }
+            const result = this.consumeClassSetOperand()
+            if (result) {
+                if (result.mayContainStrings) {
+                    mayContainStrings = true
+                }
+                continue
+            }
+            break
+        }
+
+        // * Static Semantics: MayContainStrings
+        // ClassSetExpression :: ClassUnion
+        //     1. Return MayContainStrings of the ClassUnion.
+        // ClassUnion :: ClassSetRange ClassUnion(opt)
+        //     1. If the ClassUnion is present, return MayContainStrings of the ClassUnion.
+        //     2. Return false.
+        // ClassUnion :: ClassSetOperand ClassUnion(opt)
+        //     1. If MayContainStrings of the ClassSetOperand is true, return true.
+        //     2. If ClassUnion is present, return MayContainStrings of the ClassUnion.
+        //     3. Return false.
+        return { mayContainStrings }
+    }
+
+    /**
+     * Validate the next characters as from the `-` operator in a RegExp `ClassSetRange` production if possible.
+     *
+     * ```
+     * ClassSetRange ::
+     *     ClassSetCharacter `-` ClassSetCharacter
+     * ```
+     *
+     * @param start The starting position of the left operand.
+     * @returns `true` if it consumed the next characters successfully.
+     */
+    private consumeClassSetRangeFromOperator(start: number) {
+        const currentStart = this.index
+        const min = this._lastIntValue
+        if (this.eat(HYPHEN_MINUS)) {
+            if (this.consumeClassSetCharacter()) {
+                const max = this._lastIntValue
+
+                // Validate
+                if (min === -1 || max === -1) {
+                    this.raise("Invalid character class")
+                }
+                if (min > max) {
+                    this.raise("Range out of order in character class")
+                }
+                this.onCharacterClassRange(start, this.index, min, max)
+                return true
+            }
+            this.rewind(currentStart)
+        }
+        return false
+    }
+
+    /**
+     * Validate the next characters as a RegExp `ClassSetOperand` production if possible.
+     * ```
+     * ClassSetOperand ::
+     *     ClassSetCharacter
+     *     ClassStringDisjunction
+     *     NestedClass
+     * ```
+     *
+     * @returns the object if it consumed the next characters successfully.
+     */
+    private consumeClassSetOperand(): UnicodeSetsConsumeResult | null {
+        let result: UnicodeSetsConsumeResult | null = null
+        if ((result = this.consumeNestedClass())) {
+            // * Static Semantics: MayContainStrings
+            // ClassSetOperand :: NestedClass
+            //     1. Return MayContainStrings of the NestedClass.
+            return result
+        }
+        if ((result = this.consumeClassStringDisjunction())) {
+            // * Static Semantics: MayContainStrings
+            // ClassSetOperand :: ClassStringDisjunction
+            //     1. Return MayContainStrings of the ClassStringDisjunction.
+            return result
+        }
+        if (this.consumeClassSetCharacter()) {
+            // * Static Semantics: MayContainStrings
+            // ClassSetOperand ::
+            //         ClassSetCharacter
+            //     1. Return false.
+            return {}
+        }
+        return null
+    }
+
+    /**
+     * Validate the next characters as a RegExp `NestedClass` production if possible.
+     * ```
+     * NestedClass ::
+     *     `[` [lookahead ≠ ^] ClassContents[+UnicodeMode, +UnicodeSetsMode] `]`
+     *     `[^` ClassContents[+UnicodeMode, +UnicodeSetsMode] `]`
+     *     `\` CharacterClassEscape[+UnicodeMode]
+     * ```
+     * @returns the object if it consumed the next characters successfully.
+     */
+    private consumeNestedClass(): UnicodeSetsConsumeResult | null {
+        const start = this.index
+        if (this.eat(LEFT_SQUARE_BRACKET)) {
+            const negate = this.eat(CIRCUMFLEX_ACCENT)
+            this.onCharacterClassEnter(start, negate, true)
+            const result = this.consumeClassContents()
+            if (!this.eat(RIGHT_SQUARE_BRACKET)) {
+                this.raise("Unterminated character class")
+            }
+            if (negate && result.mayContainStrings) {
+                this.raise("Negated character class may contain strings")
+            }
+            this.onCharacterClassLeave(start, this.index, negate)
+
+            // * Static Semantics: MayContainStrings
+            // NestedClass ::
+            //         [ ^ ClassContents[+UnicodeMode, +UnicodeSetsMode] ]
+            //     1. Return false.
+            // NestedClass :: [ ClassContents ]
+            //     1. Return MayContainStrings of the ClassContents.
+            return result
+        }
+        if (this.eat(REVERSE_SOLIDUS)) {
+            const result = this.consumeCharacterClassEscape()
+            if (result) {
+                // * Static Semantics: MayContainStrings
+                // NestedClass :: \ CharacterClassEscape
+                //     1. Return MayContainStrings of the CharacterClassEscape.
+                return result
+            }
+            this.rewind(start)
+        }
+        return null
+    }
+
+    /**
+     * Validate the next characters as a RegExp `ClassStringDisjunction` production if possible.
+     * ```
+     * ClassStringDisjunction ::
+     *     `\q{` ClassStringDisjunctionContents `}`
+     * ClassStringDisjunctionContents ::
+     *     ClassString
+     *     ClassString `|` ClassStringDisjunctionContents
+     * ```
+     * @returns the object if it consumed the next characters successfully.
+     */
+    private consumeClassStringDisjunction(): UnicodeSetsConsumeResult | null {
+        const start = this.index
+        if (
+            this.eat3(REVERSE_SOLIDUS, LATIN_SMALL_LETTER_Q, LEFT_CURLY_BRACKET)
+        ) {
+            this.onClassStringDisjunctionEnter(start)
+
+            let i = 0
+            let mayContainStrings = false
+            do {
+                if (this.consumeClassString(i++).mayContainStrings) {
+                    mayContainStrings = true
+                }
+            } while (this.eat(VERTICAL_LINE))
+
+            if (this.eat(RIGHT_CURLY_BRACKET)) {
+                this.onClassStringDisjunctionLeave(start, this.index)
+
+                // * Static Semantics: MayContainStrings
+                // ClassStringDisjunction :: \q{ ClassStringDisjunctionContents }
+                //     1. Return MayContainStrings of the ClassStringDisjunctionContents.
+                // ClassStringDisjunctionContents :: ClassString
+                //     1. Return MayContainStrings of the ClassString.
+                // ClassStringDisjunctionContents :: ClassString | ClassStringDisjunctionContents
+                //     1. If MayContainStrings of the ClassString is true, return true.
+                //     2. Return MayContainStrings of the ClassStringDisjunctionContents.
+                return { mayContainStrings }
+            }
+            this.raise("Unterminated class string disjunction")
+        }
+        return null
+    }
+
+    /**
+     * Validate the next characters as a RegExp `ClassString ` production.
+     * ```
+     * ClassString ::
+     *     [empty]
+     *     NonEmptyClassString
+     * NonEmptyClassString ::
+     *     ClassSetCharacter NonEmptyClassString(opt)
+     * ```
+     */
+    private consumeClassString(i: number): UnicodeSetsConsumeResult {
+        const start = this.index
+
+        let count = 0
+        this.onStringAlternativeEnter(start, i)
+        while (
+            this.currentCodePoint !== -1 &&
+            this.consumeClassSetCharacter()
+        ) {
+            count++
+        }
+        this.onStringAlternativeLeave(start, this.index, i)
+
+        // * Static Semantics: MayContainStrings
+        // ClassString :: [empty]
+        //     1. Return true.
+        // ClassString :: NonEmptyClassString
+        //     1. Return MayContainStrings of the NonEmptyClassString.
+        // NonEmptyClassString :: ClassSetCharacter NonEmptyClassString(opt)
+        //     1. If NonEmptyClassString is present, return true.
+        //     2. Return false.
+        return { mayContainStrings: count !== 1 }
+    }
+
+    /**
+     * Validate the next characters as a RegExp `ClassSetCharacter` production if possible.
+     * Set `this._lastIntValue` if it consumed the next characters successfully.
+     * ```
+     * ClassSetCharacter ::
+     *     [lookahead ∉ ClassSetReservedDoublePunctuator] SourceCharacter but not ClassSetSyntaxCharacter
+     *     `\` CharacterEscape[+UnicodeMode]
+     *     `\` ClassSetReservedPunctuator
+     *     `\b`
+     * ```
+     * @returns `true` if it ate the next characters successfully.
+     */
+    private consumeClassSetCharacter(): boolean {
+        const start = this.index
+        const cp = this.currentCodePoint
+        if (
+            // [lookahead ∉ ClassSetReservedDoublePunctuator]
+            cp !== this.nextCodePoint ||
+            !isClassSetReservedDoublePunctuatorCharacter(cp)
+        ) {
+            if (cp !== -1 && !isClassSetSyntaxCharacter(cp)) {
+                this._lastIntValue = cp
+                this.advance()
+                this.onCharacter(start, this.index, this._lastIntValue)
+                return true
+            }
+        }
+        if (this.eat(REVERSE_SOLIDUS)) {
+            if (this.consumeCharacterEscape()) {
+                return true
+            }
+            if (isClassSetReservedPunctuator(this.currentCodePoint)) {
+                this._lastIntValue = this.currentCodePoint
+                this.advance()
+                this.onCharacter(start, this.index, this._lastIntValue)
+                return true
+            }
+            if (this.eat(LATIN_SMALL_LETTER_B)) {
+                this._lastIntValue = BACKSPACE
+                this.onCharacter(start, this.index, this._lastIntValue)
+                return true
+            }
+            this.rewind(start)
+        }
+        return false
     }
 
     /**
      * Eat the next characters as a RegExp `GroupName` production if possible.
      * Set `this._lastStrValue` if the group name existed.
      * ```
-     * GroupName[U]::
-     *      `<` RegExpIdentifierName[?U] `>`
+     * GroupName[UnicodeMode]::
+     *      `<` RegExpIdentifierName[?UnicodeMode] `>`
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
@@ -1924,9 +2690,9 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastStrValue` if the identifier name existed.
      * ```
-     * RegExpIdentifierName[U]::
-     *      RegExpIdentifierStart[?U]
-     *      RegExpIdentifierName[?U] RegExpIdentifierPart[?U]
+     * RegExpIdentifierName[UnicodeMode]::
+     *      RegExpIdentifierStart[?UnicodeMode]
+     *      RegExpIdentifierName[?UnicodeMode] RegExpIdentifierPart[?UnicodeMode]
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
@@ -1946,18 +2712,18 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastIntValue` if the identifier start existed.
      * ```
-     * RegExpIdentifierStart[U] ::
-     *      UnicodeIDStart
+     * RegExpIdentifierStart[UnicodeMode] ::
+     *      IdentifierStartChar
      *      `$`
      *      `_`
-     *      `\` RegExpUnicodeEscapeSequence[+U]
-     *      [~U] UnicodeLeadSurrogate UnicodeTrailSurrogate
+     *      `\` RegExpUnicodeEscapeSequence[+UnicodeMode]
+     *      [~UnicodeMode] UnicodeLeadSurrogate UnicodeTrailSurrogate
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
     private eatRegExpIdentifierStart(): boolean {
         const start = this.index
-        const forceUFlag = !this._uFlag && this.ecmaVersion >= 2020
+        const forceUFlag = !this._unicodeMode && this.ecmaVersion >= 2020
         let cp = this.currentCodePoint
         this.advance()
 
@@ -1975,7 +2741,7 @@ export class RegExpValidator {
             this.advance()
         }
 
-        if (isRegExpIdentifierStart(cp)) {
+        if (isIdentifierStartChar(cp)) {
             this._lastIntValue = cp
             return true
         }
@@ -1991,20 +2757,16 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastIntValue` if the identifier part existed.
      * ```
-     * RegExpIdentifierPart[U] ::
-     *      UnicodeIDContinue
-     *      `$`
-     *      `_`
-     *      `\` RegExpUnicodeEscapeSequence[+U]
-     *      [~U] UnicodeLeadSurrogate UnicodeTrailSurrogate
-     *      <ZWNJ>
-     *      <ZWJ>
+     * RegExpIdentifierPart[UnicodeMode] ::
+     *      IdentifierPartChar
+     *      `\` RegExpUnicodeEscapeSequence[+UnicodeMode]
+     *      [~UnicodeMode] UnicodeLeadSurrogate UnicodeTrailSurrogate
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
     private eatRegExpIdentifierPart(): boolean {
         const start = this.index
-        const forceUFlag = !this._uFlag && this.ecmaVersion >= 2020
+        const forceUFlag = !this._unicodeMode && this.ecmaVersion >= 2020
         let cp = this.currentCodePoint
         this.advance()
 
@@ -2022,7 +2784,7 @@ export class RegExpValidator {
             this.advance()
         }
 
-        if (isRegExpIdentifierPart(cp)) {
+        if (isIdentifierPartChar(cp)) {
             this._lastIntValue = cp
             return true
         }
@@ -2034,7 +2796,7 @@ export class RegExpValidator {
     }
 
     /**
-     * Eat the next characters as the follwoing alternatives if possible.
+     * Eat the next characters as the following alternatives if possible.
      * Set `this._lastIntValue` if it ate the next characters successfully.
      * ```
      *      `c` ControlLetter
@@ -2053,7 +2815,7 @@ export class RegExpValidator {
     }
 
     /**
-     * Eat the next characters as the follwoing alternatives if possible.
+     * Eat the next characters as the following alternatives if possible.
      * Set `this._lastIntValue` if it ate the next characters successfully.
      * ```
      *      `0` [lookahead ∉ DecimalDigit]
@@ -2132,19 +2894,19 @@ export class RegExpValidator {
      * production if possible.
      * Set `this._lastIntValue` if it ate the next characters successfully.
      * ```
-     * RegExpUnicodeEscapeSequence[U]::
-     *      [+U] `u` LeadSurrogate `\u` TrailSurrogate
-     *      [+U] `u` LeadSurrogate
-     *      [+U] `u` TrailSurrogate
-     *      [+U] `u` NonSurrogate
-     *      [~U] `u` Hex4Digits
-     *      [+U] `u{` CodePoint `}`
+     * RegExpUnicodeEscapeSequence[UnicodeMode]::
+     *      [+UnicodeMode] `u` HexLeadSurrogate `\u` HexTrailSurrogate
+     *      [+UnicodeMode] `u` HexLeadSurrogate
+     *      [+UnicodeMode] `u` HexTrailSurrogate
+     *      [+UnicodeMode] `u` HexNonSurrogate
+     *      [~UnicodeMode] `u` Hex4Digits
+     *      [+UnicodeMode] `u{` CodePoint `}`
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
     private eatRegExpUnicodeEscapeSequence(forceUFlag = false): boolean {
         const start = this.index
-        const uFlag = forceUFlag || this._uFlag
+        const uFlag = forceUFlag || this._unicodeMode
 
         if (this.eat(LATIN_SMALL_LETTER_U)) {
             if (
@@ -2167,7 +2929,7 @@ export class RegExpValidator {
      * Eat the next characters as the following alternatives if possible.
      * Set `this._lastIntValue` if it ate the next characters successfully.
      * ```
-     *      LeadSurrogate `\u` TrailSurrogate
+     *      HexLeadSurrogate `\u` HexTrailSurrogate
      * ```
      * @returns `true` if it ate the next characters successfully.
      */
@@ -2224,11 +2986,11 @@ export class RegExpValidator {
      * possible.
      * Set `this._lastIntValue` if it ate the next characters successfully.
      * ```
-     * IdentityEscape[U, N]::
-     *      [+U] SyntaxCharacter
-     *      [+U] `/`
-     *      [strict][~U] SourceCharacter but not UnicodeIDContinue
-     *      [annexB][~U] SourceCharacterIdentityEscape[?N]
+     * IdentityEscape[UnicodeMode, N]::
+     *      [+UnicodeMode] SyntaxCharacter
+     *      [+UnicodeMode] `/`
+     *      [strict][~UnicodeMode] SourceCharacter but not UnicodeIDContinue
+     *      [annexB][~UnicodeMode] SourceCharacterIdentityEscape[?N]
      * SourceCharacterIdentityEscape[N]::
      *      [~N] SourceCharacter but not c
      *      [+N] SourceCharacter but not one of c k
@@ -2249,7 +3011,7 @@ export class RegExpValidator {
         if (cp === -1) {
             return false
         }
-        if (this._uFlag) {
+        if (this._unicodeMode) {
             return isSyntaxCharacter(cp) || cp === SOLIDUS
         }
         if (this.strict) {
@@ -2290,31 +3052,28 @@ export class RegExpValidator {
     /**
      * Eat the next characters as a RegExp `UnicodePropertyValueExpression`
      * production if possible.
-     * Set `this._lastKeyValue` and `this._lastValValue` if it ate the next
+     * Set `this._lastProperty` if it ate the next
      * characters successfully.
      * ```
      * UnicodePropertyValueExpression::
      *      UnicodePropertyName `=` UnicodePropertyValue
      *      LoneUnicodePropertyNameOrValue
      * ```
-     * @returns `true` if it ate the next characters successfully.
+     * @returns the object if it ate the next characters successfully.
      */
-    private eatUnicodePropertyValueExpression(): boolean {
+    private eatUnicodePropertyValueExpression(): UnicodePropertyValueExpressionConsumeResult | null {
         const start = this.index
 
         // UnicodePropertyName `=` UnicodePropertyValue
         if (this.eatUnicodePropertyName() && this.eat(EQUALS_SIGN)) {
-            this._lastKeyValue = this._lastStrValue
+            const key = this._lastStrValue
             if (this.eatUnicodePropertyValue()) {
-                this._lastValValue = this._lastStrValue
-                if (
-                    isValidUnicodeProperty(
-                        this.ecmaVersion,
-                        this._lastKeyValue,
-                        this._lastValValue,
-                    )
-                ) {
-                    return true
+                const value = this._lastStrValue
+                if (isValidUnicodeProperty(this.ecmaVersion, key, value)) {
+                    return {
+                        key,
+                        value: value || null,
+                    }
                 }
                 this.raise("Invalid property name")
             }
@@ -2331,18 +3090,33 @@ export class RegExpValidator {
                     nameOrValue,
                 )
             ) {
-                this._lastKeyValue = "General_Category"
-                this._lastValValue = nameOrValue
-                return true
+                return {
+                    key: "General_Category",
+                    value: nameOrValue || null,
+                }
             }
             if (isValidLoneUnicodeProperty(this.ecmaVersion, nameOrValue)) {
-                this._lastKeyValue = nameOrValue
-                this._lastValValue = ""
-                return true
+                return {
+                    key: nameOrValue,
+                    value: null,
+                }
+            }
+            if (
+                this._unicodeSetsMode &&
+                isValidLoneUnicodePropertyOfString(
+                    this.ecmaVersion,
+                    nameOrValue,
+                )
+            ) {
+                return {
+                    key: nameOrValue,
+                    value: null,
+                    strings: true,
+                }
             }
             this.raise("Invalid property name")
         }
-        return false
+        return null
     }
 
     /**
@@ -2414,7 +3188,7 @@ export class RegExpValidator {
             if (this.eatFixedHexDigits(2)) {
                 return true
             }
-            if (this._uFlag || this.strict) {
+            if (this._unicodeMode || this.strict) {
                 this.raise("Invalid escape")
             }
             this.rewind(start)

@@ -7,12 +7,17 @@ import type {
     CharacterClass,
     CharacterClassRange,
     CharacterSet,
+    ClassIntersection,
+    ClassStringDisjunction,
+    ClassSubtraction,
+    ExpressionCharacterClass,
     Flags,
     Group,
     Node,
     Pattern,
     Quantifier,
     RegExpLiteral,
+    StringAlternative,
 } from "./ast"
 
 /**
@@ -33,6 +38,7 @@ export class RegExpVisitor {
      * Visit a given node and descendant nodes.
      * @param node The root node to visit tree.
      */
+    // eslint-disable-next-line complexity
     public visit(node: Node): void {
         switch (node.type) {
             case "Alternative":
@@ -59,6 +65,18 @@ export class RegExpVisitor {
             case "CharacterSet":
                 this.visitCharacterSet(node)
                 break
+            case "ClassIntersection":
+                this.visitClassIntersection(node)
+                break
+            case "ClassStringDisjunction":
+                this.visitClassStringDisjunction(node)
+                break
+            case "ClassSubtraction":
+                this.visitClassSubtraction(node)
+                break
+            case "ExpressionCharacterClass":
+                this.visitExpressionCharacterClass(node)
+                break
             case "Flags":
                 this.visitFlags(node)
                 break
@@ -73,6 +91,9 @@ export class RegExpVisitor {
                 break
             case "RegExpLiteral":
                 this.visitRegExpLiteral(node)
+                break
+            case "StringAlternative":
+                this.visitStringAlternative(node)
                 break
             default:
                 throw new Error(
@@ -161,6 +182,50 @@ export class RegExpVisitor {
         }
     }
 
+    private visitClassIntersection(node: ClassIntersection): void {
+        if (this._handlers.onClassIntersectionEnter) {
+            this._handlers.onClassIntersectionEnter(node)
+        }
+        this.visit(node.left)
+        this.visit(node.right)
+        if (this._handlers.onClassIntersectionLeave) {
+            this._handlers.onClassIntersectionLeave(node)
+        }
+    }
+
+    private visitClassStringDisjunction(node: ClassStringDisjunction): void {
+        if (this._handlers.onClassStringDisjunctionEnter) {
+            this._handlers.onClassStringDisjunctionEnter(node)
+        }
+        node.alternatives.forEach(this.visit, this)
+        if (this._handlers.onClassStringDisjunctionLeave) {
+            this._handlers.onClassStringDisjunctionLeave(node)
+        }
+    }
+
+    private visitClassSubtraction(node: ClassSubtraction): void {
+        if (this._handlers.onClassSubtractionEnter) {
+            this._handlers.onClassSubtractionEnter(node)
+        }
+        this.visit(node.left)
+        this.visit(node.right)
+        if (this._handlers.onClassSubtractionLeave) {
+            this._handlers.onClassSubtractionLeave(node)
+        }
+    }
+
+    private visitExpressionCharacterClass(
+        node: ExpressionCharacterClass,
+    ): void {
+        if (this._handlers.onExpressionCharacterClassEnter) {
+            this._handlers.onExpressionCharacterClassEnter(node)
+        }
+        this.visit(node.expression)
+        if (this._handlers.onExpressionCharacterClassLeave) {
+            this._handlers.onExpressionCharacterClassLeave(node)
+        }
+    }
+
     private visitFlags(node: Flags): void {
         if (this._handlers.onFlagsEnter) {
             this._handlers.onFlagsEnter(node)
@@ -210,6 +275,16 @@ export class RegExpVisitor {
             this._handlers.onRegExpLiteralLeave(node)
         }
     }
+
+    private visitStringAlternative(node: StringAlternative): void {
+        if (this._handlers.onStringAlternativeEnter) {
+            this._handlers.onStringAlternativeEnter(node)
+        }
+        node.elements.forEach(this.visit, this)
+        if (this._handlers.onStringAlternativeLeave) {
+            this._handlers.onStringAlternativeLeave(node)
+        }
+    }
 }
 
 export namespace RegExpVisitor {
@@ -230,6 +305,18 @@ export namespace RegExpVisitor {
         onCharacterClassRangeLeave?: (node: CharacterClassRange) => void
         onCharacterSetEnter?: (node: CharacterSet) => void
         onCharacterSetLeave?: (node: CharacterSet) => void
+        onClassIntersectionEnter?: (node: ClassIntersection) => void
+        onClassIntersectionLeave?: (node: ClassIntersection) => void
+        onClassStringDisjunctionEnter?: (node: ClassStringDisjunction) => void
+        onClassStringDisjunctionLeave?: (node: ClassStringDisjunction) => void
+        onClassSubtractionEnter?: (node: ClassSubtraction) => void
+        onClassSubtractionLeave?: (node: ClassSubtraction) => void
+        onExpressionCharacterClassEnter?: (
+            node: ExpressionCharacterClass,
+        ) => void
+        onExpressionCharacterClassLeave?: (
+            node: ExpressionCharacterClass,
+        ) => void
         onFlagsEnter?: (node: Flags) => void
         onFlagsLeave?: (node: Flags) => void
         onGroupEnter?: (node: Group) => void
@@ -240,5 +327,7 @@ export namespace RegExpVisitor {
         onQuantifierLeave?: (node: Quantifier) => void
         onRegExpLiteralEnter?: (node: RegExpLiteral) => void
         onRegExpLiteralLeave?: (node: RegExpLiteral) => void
+        onStringAlternativeEnter?: (node: StringAlternative) => void
+        onStringAlternativeLeave?: (node: StringAlternative) => void
     }
 }

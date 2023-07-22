@@ -49,7 +49,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": true,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },

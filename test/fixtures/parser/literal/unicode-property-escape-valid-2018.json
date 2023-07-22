@@ -49,7 +49,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -106,7 +107,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -203,7 +205,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -308,7 +311,8 @@
           "unicode": false,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -340,6 +344,7 @@
                   "end": 10,
                   "raw": "\\p{ASCII}",
                   "kind": "property",
+                  "strings": false,
                   "key": "ASCII",
                   "value": null,
                   "negate": false
@@ -360,7 +365,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -392,6 +398,7 @@
                   "end": 10,
                   "raw": "\\p{Emoji}",
                   "kind": "property",
+                  "strings": false,
                   "key": "Emoji",
                   "value": null,
                   "negate": false
@@ -412,7 +419,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -444,6 +452,7 @@
                   "end": 28,
                   "raw": "\\p{General_Category=Letter}",
                   "kind": "property",
+                  "strings": false,
                   "key": "General_Category",
                   "value": "Letter",
                   "negate": false
@@ -464,7 +473,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -496,6 +506,7 @@
                   "end": 20,
                   "raw": "\\p{Script=Hiragana}",
                   "kind": "property",
+                  "strings": false,
                   "key": "Script",
                   "value": "Hiragana",
                   "negate": false
@@ -516,7 +527,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -547,6 +559,7 @@
                   "start": 1,
                   "end": 43,
                   "raw": "[\\p{Script=Hiragana}\\-\\p{Script=Katakana}]",
+                  "unicodeSets": false,
                   "negate": false,
                   "elements": [
                     {
@@ -556,6 +569,7 @@
                       "end": 21,
                       "raw": "\\p{Script=Hiragana}",
                       "kind": "property",
+                      "strings": false,
                       "key": "Script",
                       "value": "Hiragana",
                       "negate": false
@@ -575,6 +589,7 @@
                       "end": 42,
                       "raw": "\\p{Script=Katakana}",
                       "kind": "property",
+                      "strings": false,
                       "key": "Script",
                       "value": "Katakana",
                       "negate": false
@@ -597,7 +612,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     },
@@ -629,6 +645,7 @@
                   "end": 11,
                   "raw": "\\P{Letter}",
                   "kind": "property",
+                  "strings": false,
                   "key": "General_Category",
                   "value": "Letter",
                   "negate": true
@@ -649,7 +666,8 @@
           "unicode": true,
           "sticky": false,
           "dotAll": false,
-          "hasIndices": false
+          "hasIndices": false,
+          "unicodeSets": false
         }
       }
     }
