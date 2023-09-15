@@ -8,6 +8,7 @@ export type Node = BranchNode | LeafNode
  */
 export type BranchNode =
     | Alternative
+    | AtomicGroup
     | CapturingGroup
     | CharacterClass
     | CharacterClassRange
@@ -41,6 +42,7 @@ export type Element = Assertion | QuantifiableElement | Quantifier
  * The type which includes all atom nodes that Quantifier node can have as children.
  */
 export type QuantifiableElement =
+    | AtomicGroup
     | Backreference
     | CapturingGroup
     | Character
@@ -111,7 +113,7 @@ export interface Pattern extends NodeBase {
  */
 export interface Alternative extends NodeBase {
     type: "Alternative"
-    parent: CapturingGroup | Group | LookaroundAssertion | Pattern
+    parent: AtomicGroup | CapturingGroup | Group | LookaroundAssertion | Pattern
     elements: Element[]
 }
 
@@ -133,6 +135,13 @@ export interface CapturingGroup extends NodeBase {
     type: "CapturingGroup"
     parent: Alternative | Quantifier
     name: string | null
+    alternatives: Alternative[]
+    references: Backreference[]
+}
+
+export interface AtomicGroup extends NodeBase {
+    type: "AtomicGroup"
+    parent: Alternative | Quantifier
     alternatives: Alternative[]
     references: Backreference[]
 }

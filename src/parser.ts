@@ -1,24 +1,25 @@
 import type {
     Alternative,
+    AtomicGroup,
     Backreference,
     CapturingGroup,
     CharacterClass,
     CharacterClassElement,
     CharacterClassRange,
+    ClassIntersection,
+    ClassSetOperand,
+    ClassStringDisjunction,
+    ClassSubtraction,
+    ExpressionCharacterClass,
     Flags,
     Group,
-    RegExpLiteral,
     LookaroundAssertion,
     Pattern,
     Quantifier,
-    ClassStringDisjunction,
-    ClassIntersection,
-    ClassSubtraction,
-    UnicodeSetsCharacterClassElement,
-    ClassSetOperand,
-    UnicodeSetsCharacterClass,
-    ExpressionCharacterClass,
+    RegExpLiteral,
     StringAlternative,
+    UnicodeSetsCharacterClass,
+    UnicodeSetsCharacterClassElement,
 } from "./ast"
 import type { EcmaVersion } from "./ecma-versions"
 import { latestEcmaVersion } from "./ecma-versions"
@@ -27,6 +28,7 @@ import { RegExpValidator } from "./validator"
 
 type AppendableNode =
     | Alternative
+    | AtomicGroup
     | CapturingGroup
     | CharacterClass
     | ClassStringDisjunction
@@ -162,7 +164,8 @@ class RegExpParserState {
             parent.type !== "Assertion" &&
             parent.type !== "CapturingGroup" &&
             parent.type !== "Group" &&
-            parent.type !== "Pattern"
+            parent.type !== "Pattern" &&
+            parent.type !== "AtomicGroup"
         ) {
             throw new Error("UnknownError")
         }
@@ -724,6 +727,38 @@ class RegExpParserState {
     public onStringAlternativeLeave(start: number, end: number): void {
         const node = this._node
         if (node.type !== "StringAlternative") {
+            throw new Error("UnknownError")
+        }
+
+        node.end = end
+        node.raw = this.source.slice(start, end)
+        this._node = node.parent
+    }
+
+    public onAtomicGroupEnter(start: number): void {
+        const parent = this._node
+
+        if (parent.type !== "Alternative") {
+            throw new Error("UnknownError")
+        }
+
+        this._node = {
+            type: "AtomicGroup",
+            alternatives: [],
+            end: start,
+            parent,
+            raw: "",
+            references: [],
+            start,
+        }
+
+        parent.elements.push(this._node)
+    }
+
+    public onAtomicGroupLeave(start: number, end: number): void {
+        const node = this._node
+
+        if (node.type !== "AtomicGroup" || node.parent.type !== "Alternative") {
             throw new Error("UnknownError")
         }
 

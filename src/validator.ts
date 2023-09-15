@@ -594,6 +594,9 @@ export namespace RegExpValidator {
             end: number,
             index: number,
         ) => void
+
+        onAtomicGroupEnter?: (start: number) => void
+        onAtomicGroupLeave?: (start: number, end: number) => void
     }
 }
 
@@ -1729,6 +1732,20 @@ export class RegExpValidator {
      * @returns `true` if it consumed the next characters successfully.
      */
     private consumeExtendedAtom(): boolean {
+        if (this.eat3(LEFT_PARENTHESIS, QUESTION_MARK, GREATER_THAN_SIGN)) {
+            const index = this.index
+
+            this._options.onAtomicGroupEnter?.(index)
+            this.consumeDisjunction()
+            this._options.onAtomicGroupLeave?.(index, this.index)
+
+            if (!this.eat(RIGHT_PARENTHESIS)) {
+                this.raise("Unterminated group")
+            }
+
+            return true
+        }
+
         return (
             this.consumeDot() ||
             this.consumeReverseSolidusAtomEscape() ||
